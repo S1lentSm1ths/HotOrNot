@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/drawable/first_layout_background.xml" value="0.126" />
         <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/drawable/ic_app_logo.xml" value="0.1" />
+        <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.126" />
         <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/layout/activity_main.xml" value="0.15555555555555556" />
         <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/layout/fragment_main_screen.xml" value="0.15555555555555556" />
-        <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/layout/fragment_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/layout/fragment_registration_screen.xml" value="0.25" />
+        <entry key="..\:/Users/Student Account/Desktop/androidProjectsMihail/HotOrNot3/app/src/main/res/layout/fragment_splash_screen.xml" value="0.22" />
       </map>
     </option>
   </component>

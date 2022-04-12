@@ -8,4 +8,9 @@
     <string name="name_stan">Stan</string>
     <string name="hot">Hot</string>
     <string name="not">Not</string>
+    <string name="app_text">ヾ(´∀｀○)ﾉ</string>
+    <string name="create_account">Create account</string>
+    <string name="last_name">Last Name</string>
+    <string name="name">Name</string>
+    <string name="user_shared_preferences_key">userSharedPreferences</string>
 </resources>
