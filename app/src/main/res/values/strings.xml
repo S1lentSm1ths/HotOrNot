@@ -12,6 +12,5 @@
     <string name="create_account">Create account</string>
     <string name="last_name">Last Name</string>
     <string name="name">First Name</string>
-    <string name="user_shared_preferences_key">userSharedPreferences</string>
     <string name="edit_text_helper_text_required">Required*</string>
 </resources>

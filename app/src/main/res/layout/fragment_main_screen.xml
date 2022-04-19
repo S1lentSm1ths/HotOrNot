@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="@string/first_person_name"
-                android:textColor="#2B2828"
+                android:textColor="@color/card_view_name_text_color"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="@id/person_image"
                 app:layout_constraintTop_toBottomOf="@id/person_image" />

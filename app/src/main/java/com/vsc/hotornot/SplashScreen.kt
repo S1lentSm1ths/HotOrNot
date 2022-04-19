@@ -9,34 +9,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.vsc.hotornot.Constants.Companion.transactionDurationTime
 import com.vsc.hotornot.databinding.FragmentSplashScreenBinding
 
 class SplashScreen : Fragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
+    private val userSharedPreferences = UserSharedPreferences()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-        getSharedData()
+        userSharedPreferences.getUserData()
+        val savedFirstName = userSharedPreferences.getUserData()
+        checkIfUserExist()
         return binding.root
     }
 
-    private fun getSharedData(){
-        val userSharedPreferences = activity?.getSharedPreferences(getString(R.string.user_shared_preferences_key), Context.MODE_PRIVATE)
-        val firstName = userSharedPreferences?.getString("name$", null)
-        val lastName = userSharedPreferences?.getString("last_name", null)
-
-        checkIfUserExist(firstName)
-    }
-
-    private fun checkIfUserExist(firstName: String?){
-        if (firstName != null){
+    private fun checkIfUserExist(firstName: String?) {
+        if (firstName != null) {
             postTransactionDelayToMainScreen()
-        }
-        else {
+        } else {
             postTransactionDelayToRegistrationScreen()
         }
     }
@@ -45,13 +40,13 @@ class SplashScreen : Fragment() {
         Handler(Looper.getMainLooper())
             .postDelayed({
                 findNavController().navigate(R.id.actionSplashScreenToMainScreen)
-            }, 2500)
+            }, transactionDurationTime)
     }
 
     private fun postTransactionDelayToRegistrationScreen() {
         Handler(Looper.getMainLooper())
             .postDelayed({
                 findNavController().navigate(R.id.actionSplashScreenToRegistrationScreenFragment)
-            }, 1500)
+            }, transactionDurationTime)
     }
 }
