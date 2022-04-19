@@ -13,10 +13,22 @@
         <action
             android:id="@+id/actionSplashScreenToMainScreen"
             app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/actionSplashScreenToRegistrationScreenFragment"
+            app:destination="@id/registrationScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
         android:name="com.vsc.hotornot.MainScreen"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" />
+    <fragment
+        android:id="@+id/registrationScreenFragment"
+        android:name="com.vsc.hotornot.RegistrationScreen"
+        android:label="fragment_registration_screen"
+        tools:layout="@layout/fragment_registration_screen" >
+        <action
+            android:id="@+id/actionRegistrationScreenFragmentToMainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
 </navigation>
