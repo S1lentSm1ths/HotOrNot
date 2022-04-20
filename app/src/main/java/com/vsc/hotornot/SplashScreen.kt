@@ -8,24 +8,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.vsc.hotornot.Constants.Companion.transactionDurationTime
+import com.vsc.hotornot.databinding.FragmentSplashScreenBinding
 
 class SplashScreen : Fragment() {
+
+    private lateinit var binding: FragmentSplashScreenBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view  = inflater.inflate(R.layout.fragment_splash_screen, container, false)
-
+    ): View {
+        binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         postTransactionDelay()
-        return view
+        return binding.root
     }
 
     private fun postTransactionDelay() {
         Handler(Looper.getMainLooper())
             .postDelayed({
-                findNavController().navigate(R.id.actionSplashScreenToMainScreen)
-            }, 2500)
+                actionGoToMainScreen()
+            }, transactionDurationTime)
+    }
+
+    private fun actionGoToMainScreen(){
+        findNavController().navigate(R.id.actionSplashScreenToMainScreen)
     }
 }
