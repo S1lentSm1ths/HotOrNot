@@ -11,6 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_menu"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/sassy_text_color"
+            app:title="@string/create_account"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/createAccountProgressBar"
             android:layout_width="match_parent"
@@ -78,6 +88,26 @@
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:paddingHorizontal="40dp"
+            app:boxStrokeColor="@color/sassy_text_color"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/appLogo"
+            app:layout_constraintStart_toStartOf="@id/appLogo"
+            app:layout_constraintTop_toBottomOf="@id/lastNameTextLayout"
+            app:startIconDrawable="@drawable/ic_login_person">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/buttonRegister"
@@ -91,7 +121,11 @@
             app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastNameTextLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/emailTextLayout" />
+
+<!--        <RadioGroup-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

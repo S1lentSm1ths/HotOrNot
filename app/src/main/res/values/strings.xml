@@ -13,4 +13,6 @@
     <string name="last_name">Last Name</string>
     <string name="name">First Name</string>
     <string name="edit_text_helper_text_required">Required*</string>
+    <string name="delete_user">Delete user</string>
+    <string name="email">Email</string>
 </resources>

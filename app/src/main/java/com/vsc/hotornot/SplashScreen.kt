@@ -1,6 +1,7 @@
 package com.vsc.hotornot
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,17 +16,22 @@ import com.vsc.hotornot.databinding.FragmentSplashScreenBinding
 class SplashScreen : Fragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
-    private val userSharedPreferences = UserSharedPreferences()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-        userSharedPreferences.getUserData()
-        val savedFirstName = userSharedPreferences.getUserData()
-        checkIfUserExist()
+        checkIfUserExist(getUserFirstName())
         return binding.root
+    }
+
+    private fun getUserFirstName(): String? {
+        val userSharedPreferences = activity?.getSharedPreferences(
+            Constants.userSharedPreferencesKey,
+            Context.MODE_PRIVATE
+        )
+        return userSharedPreferences?.getString("first_name", null)
     }
 
     private fun checkIfUserExist(firstName: String?) {

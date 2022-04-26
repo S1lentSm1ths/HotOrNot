@@ -40,6 +40,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/buttonDeleteUser"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/card_view_background"
+                android:hint="@string/delete_user"
+                android:textColorHint="@color/black"
+                app:cornerRadius="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/person_image"
+                app:strokeColor="@color/first_background_end_color"
+                app:strokeWidth="3dp" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

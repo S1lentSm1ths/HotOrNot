@@ -1,5 +1,6 @@
 package com.vsc.hotornot
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,12 +17,12 @@ class MainScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         changePersonImageOnClick()
+        onButtonDeleteUserClicked()
     }
 
     private fun changePersonImageOnClick() {
@@ -47,5 +48,23 @@ class MainScreen : Fragment() {
             binding.personHotButton.visibility = View.GONE
             binding.personNotButton.visibility = View.VISIBLE
         }
+    }
+
+    private fun onButtonDeleteUserClicked() {
+        binding.buttonDeleteUser.setOnClickListener {
+            deleteUser()
+        }
+    }
+
+    private fun deleteUser() {
+        val userSharedPreferences = activity?.getSharedPreferences(
+            Constants.userSharedPreferencesKey,
+            Context.MODE_PRIVATE
+        )
+        val editor = userSharedPreferences?.edit()
+        editor?.apply() {
+            remove("first_name")
+            remove("last_name")
+        }?.apply()
     }
 }
