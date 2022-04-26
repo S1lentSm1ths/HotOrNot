@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">HotOrNot</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_person_name">Ivan</string>
+    <string name="main_screen_buttons_text">Not</string>
+    <string name="name_georgi">Georgi</string>
+    <string name="name_stan">Stan</string>
+    <string name="hot">Hot</string>
+    <string name="not">Not</string>
 </resources>
