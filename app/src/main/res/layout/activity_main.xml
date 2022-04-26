@@ -16,4 +16,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_menu"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/card_view_background"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

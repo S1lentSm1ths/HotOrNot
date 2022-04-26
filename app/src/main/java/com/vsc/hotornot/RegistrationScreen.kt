@@ -66,4 +66,8 @@ class RegistrationScreen : Fragment() {
                 findNavController().navigate(R.id.actionRegistrationScreenFragmentToMainScreen)
             }, transactionDurationTime)
     }
+
+    private fun initToolBar(){
+
+    }
 }

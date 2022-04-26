@@ -12,11 +12,11 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/createAccountProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:indeterminate="true"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
 
         <ImageView
             android:id="@+id/appLogo"
@@ -27,18 +27,7 @@
             android:src="@drawable/ic_app_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/createAccountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_account"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appLogo" />
+            app:layout_constraintTop_toTopOf="@id/createAccountProgressBar" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/firstNameTextLayout"
@@ -54,9 +43,9 @@
             app:counterMaxLength="100"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/createAccountTextView"
-            app:layout_constraintStart_toStartOf="@id/createAccountTextView"
-            app:layout_constraintTop_toBottomOf="@+id/createAccountTextView"
+            app:layout_constraintEnd_toEndOf="@id/appLogo"
+            app:layout_constraintStart_toStartOf="@id/appLogo"
+            app:layout_constraintTop_toBottomOf="@+id/appLogo"
             app:startIconDrawable="@drawable/ic_login_person">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -78,8 +67,8 @@
             app:counterMaxLength="100"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/createAccountTextView"
-            app:layout_constraintStart_toStartOf="@id/createAccountTextView"
+            app:layout_constraintEnd_toEndOf="@id/appLogo"
+            app:layout_constraintStart_toStartOf="@id/appLogo"
             app:layout_constraintTop_toBottomOf="@id/firstNameTextLayout"
             app:startIconDrawable="@drawable/ic_login_person">
 

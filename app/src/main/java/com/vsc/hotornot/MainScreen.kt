@@ -16,6 +16,7 @@ class MainScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
