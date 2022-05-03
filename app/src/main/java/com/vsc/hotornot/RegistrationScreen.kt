@@ -49,21 +49,15 @@ class RegistrationScreen : Fragment() {
 
     }
 
-    private fun firstAndLastNameValidation(
-        firstNameEditText: TextInputEditText,
-        lastNameEditText: TextInputEditText
-    ): Boolean {
-        val firstNameText = firstNameEditText.text.toString()
-        val lastNameText = lastNameEditText.text.toString()
-        return when (firstNameText.isEmpty() && lastNameText.isEmpty()) {
-            true -> false
-            else -> true
-        }
-    }
-
     private fun onButtonRegisterClicked() {
         binding.buttonRegister.setOnClickListener {
-            firstAndLastNameValidation(binding.firstNameEditText, binding.lastNameEditText)
+            when (checkAllValidation()) {
+                true -> {
+                    binding.createAccountProgressBar.isIndeterminate = true
+
+                }
+                else ->
+            }
         }
     }
 
@@ -78,12 +72,45 @@ class RegistrationScreen : Fragment() {
         findNavController().navigate(actionRegistrationScreenFragmentToMainScreen)
     }
 
-    private fun initToolBar() {
-
+    private fun firstAndLastNameValidation(
+        firstNameEditText: TextInputEditText,
+        lastNameEditText: TextInputEditText
+    ): Boolean {
+        val firstNameText = firstNameEditText.text.toString()
+        val lastNameText = lastNameEditText.text.toString()
+        return when (firstNameText.isEmpty() && lastNameText.isEmpty()) {
+            true -> false
+            else -> true
+        }
     }
 
     private fun emailValidation(): Boolean {
-        return when (binding.emailEditText.text.toString().contains("@")) {
+        val emailInput = binding.emailEditText
+        var isEmailValid = false
+        emailInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                isEmailValid = when (binding.emailEditText.text.toString().contains("@")) {
+                    true -> true
+                    else -> false
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                TODO("Not yet implemented")
+            }
+        })
+        return isEmailValid
+    }
+
+    private fun checkAllValidation(): Boolean {
+        return when (firstAndLastNameValidation(
+            binding.firstNameEditText,
+            binding.lastNameEditText
+        ) && emailValidation()) {
             true -> true
             else -> false
         }

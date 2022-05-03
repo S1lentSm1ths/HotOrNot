@@ -25,7 +25,7 @@
             android:id="@+id/createAccountProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
+            android:indeterminate="false"
             app:indicatorColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
 
@@ -154,10 +154,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:buttonTint="@color/card_view_background"
+                android:checked="true"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/xxsmall_margin"
                 android:text="@string/other"
-                android:checked="true"
                 android:textColor="@color/white"
                 android:textSize="@dimen/medium_text"
                 app:layout_constraintEnd_toEndOf="@id/emailTextLayout"
@@ -165,13 +165,22 @@
                 app:layout_constraintTop_toBottomOf="@id/emailTextLayout" />
         </RadioGroup>
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/interestsDropDownMenu"
-            android:layout_width="@dimen/zero_margin"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:tooltipText="interests"
+            android:text="@string/interests"
+            android:textSize="@dimen/small_text"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/interestsDropDownMenu"
+            app:layout_constraintStart_toStartOf="@id/interestsDropDownMenu"/>
+        <Spinner
+            android:id="@+id/interestsDropDownMenu"
+            android:layout_width="@dimen/xlarge_margin"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxmedium_margin"
             android:paddingHorizontal="@dimen/xxmedium_margin"
+            android:prompt="@string/interests"
+            android:elevation="@dimen/medium_margin"
             android:spinnerMode="dialog"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
