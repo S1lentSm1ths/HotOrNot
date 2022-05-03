@@ -11,7 +11,7 @@ import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 class MainScreen : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-
+    private val userSharedPreferences = UserSharedPreferences(this.context)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,19 +52,19 @@ class MainScreen : Fragment() {
 
     private fun onButtonDeleteUserClicked() {
         binding.buttonDeleteUser.setOnClickListener {
-            deleteUser()
+            userSharedPreferences.deleteUser()
         }
     }
 
-    private fun deleteUser() {
-        val userSharedPreferences = activity?.getSharedPreferences(
-            Constants.userSharedPreferencesKey,
-            Context.MODE_PRIVATE
-        )
-        val editor = userSharedPreferences?.edit()
-        editor?.apply() {
-            remove("first_name")
-            remove("last_name")
-        }?.apply()
-    }
+//    private fun deleteUser() {
+//        val userSharedPreferences = activity?.getSharedPreferences(
+//            Constants.userSharedPreferencesKey,
+//            Context.MODE_PRIVATE
+//        )
+//        val editor = userSharedPreferences?.edit()
+//        editor?.apply() {
+//            remove("first_name")
+//            remove("last_name")
+//        }?.apply()
+//    }
 }

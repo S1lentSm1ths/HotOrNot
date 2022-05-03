@@ -9,10 +9,22 @@
     <string name="hot">Hot</string>
     <string name="not">Not</string>
     <string name="app_text">ヾ(´∀｀○)ﾉ</string>
+    <string name="register">REGISTER</string>
     <string name="create_account">Create account</string>
     <string name="last_name">Last Name</string>
     <string name="name">First Name</string>
     <string name="edit_text_helper_text_required">Required*</string>
     <string name="delete_user">Delete user</string>
     <string name="email">Email</string>
+    <string name="other">Other</string>
+    <string name="woman">Woman</string>
+    <string name="man">Man</string>
+    <integer name="name_max_chars">100</integer>
+    <string-array name="interests_array">
+        <item>Males</item>
+        <item>Females</item>
+        <item>Drag Queens</item>
+        <item>Apache Helicopters</item>
+        <item>Furries</item>
+    </string-array>
 </resources>

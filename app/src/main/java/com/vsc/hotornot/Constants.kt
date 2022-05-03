@@ -1,8 +1,5 @@
 package com.vsc.hotornot
 
-class Constants {
-    companion object{
-        const val transactionDurationTime: Long = 2000
-        const val userSharedPreferencesKey = "userSharedPreferences"
-    }
+object Constants {
+     const val TRANSACTION_DURATION_TIME: Long = 2000
 }

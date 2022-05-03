@@ -1,34 +1,45 @@
 package com.vsc.hotornot
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.BoringLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.test.core.app.ApplicationProvider
 import com.google.android.material.textfield.TextInputEditText
-import com.vsc.hotornot.Constants.Companion.transactionDurationTime
-import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
+import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
 import com.vsc.hotornot.R.id.actionRegistrationScreenFragmentToMainScreen
+import com.vsc.hotornot.R.id.add
+import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
+import kotlinx.coroutines.selects.select
 
 
 class RegistrationScreen : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
 
+    private val userSharedPreferences = UserSharedPreferences(this.context)
+    private var gender: String? = null
+    private var selectedInterest: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegistrationScreenBinding.inflate(inflater, container, false)
+        initSpinner()
+        checkIfFieldsFill()
+        onGenderButtonSelect()
         onButtonRegisterClicked()
         //emailValidation()
         return binding.root
@@ -38,85 +49,122 @@ class RegistrationScreen : Fragment() {
 
     }
 
-    private fun checkIfEnteredDataIsNull(
+    private fun firstAndLastNameValidation(
         firstNameEditText: TextInputEditText,
         lastNameEditText: TextInputEditText
-    ) {
+    ): Boolean {
         val firstNameText = firstNameEditText.text.toString()
         val lastNameText = lastNameEditText.text.toString()
-        when {
-            firstNameText.isEmpty() -> {
-                firstNameEditText.error = "Field is required!"
-            }
-            lastNameText.isEmpty() -> {
-                lastNameEditText.error = "Field is required!"
-            }
-            else -> {
-                saveUserData(firstNameEditText, lastNameEditText)
-                Toast.makeText(
-                    this.context,
-                    "You have been registered successful!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                postTransactionDelayToMainScreen()
-            }
+        return when (firstNameText.isEmpty() && lastNameText.isEmpty()) {
+            true -> false
+            else -> true
         }
-    }
-
-    private fun saveUserData(firstNameEditText: TextInputEditText, lastNameEditText: TextInputEditText) {
-        val userSharedPreferences = activity?.getSharedPreferences(
-            Constants.userSharedPreferencesKey,
-            Context.MODE_PRIVATE
-        )
-        val editor = userSharedPreferences?.edit()
-        editor?.apply {
-            putString("first_name", firstNameEditText.toString())
-            putString("last_name", lastNameEditText.toString())
-        }?.apply()
     }
 
     private fun onButtonRegisterClicked() {
         binding.buttonRegister.setOnClickListener {
-            checkIfEnteredDataIsNull(binding.firstNameEditText, binding.lastNameEditText)
+            firstAndLastNameValidation(binding.firstNameEditText, binding.lastNameEditText)
         }
     }
 
     private fun postTransactionDelayToMainScreen() {
         Handler(Looper.getMainLooper())
             .postDelayed({
-                findNavController().navigate(actionRegistrationScreenFragmentToMainScreen)
-            }, transactionDurationTime)
+                navigateToMainScreen()
+            }, TRANSACTION_DURATION_TIME)
+    }
+
+    private fun navigateToMainScreen() {
+        findNavController().navigate(actionRegistrationScreenFragmentToMainScreen)
     }
 
     private fun initToolBar() {
 
     }
 
-    private fun emailValidation() {
-        val emailValidate = binding.emailEditText
-        val email = emailValidate.text.toString().trim { it <= ' ' }
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+    private fun emailValidation(): Boolean {
+        return when (binding.emailEditText.text.toString().contains("@")) {
+            true -> true
+            else -> false
+        }
+    }
 
-        emailValidate.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                if (email.matches(emailPattern) && s.length > 0) {
-                    Toast.makeText(
-                        ApplicationProvider.getApplicationContext<Context>(),
-                        "valid email address",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        ApplicationProvider.getApplicationContext<Context>(),
-                        "Invalid email address",
-                        Toast.LENGTH_SHORT
-                    ).show()
+    private fun initSpinner() {
+        val interestsArray = resources.getStringArray(R.array.interests_array)
+
+        binding.interestsDropDownMenu.adapter =
+            ArrayAdapter(
+                requireContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                interestsArray
+            )
+        binding.interestsDropDownMenu.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedInterest = interestsArray[position]
+
+                }
+
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    Toast.makeText(requireContext(), "Please select option!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+    }
+
+    private fun onGenderButtonSelect() {
+        binding.genderManButton.setOnClickListener() {
+            gender = binding.genderManButton.text.toString()
+        }
+        binding.genderWomanButton.setOnClickListener() {
+            gender = binding.genderWomanButton.text.toString()
+        }
+        binding.genderOtherButton.setOnClickListener() {
+            gender = binding.genderOtherButton.text.toString()
+        }
+    }
+
+    private fun fillTheProgressBar() {
+
+    }
+
+    private fun checkIfFieldsFill() {
+        var currentProgress = binding.createAccountProgressBar.progress
+        val thirdProgress = 33
+        binding.firstNameEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                binding.createAccountProgressBar.apply {
+                    isIndeterminate = false
+                    progress = currentProgress + thirdProgress
+                }
+                currentProgress += thirdProgress
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        })
+        binding.lastNameEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                binding.createAccountProgressBar.apply {
+                    isIndeterminate = false
+                    progress = currentProgress + thirdProgress
                 }
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
         })
     }
 }

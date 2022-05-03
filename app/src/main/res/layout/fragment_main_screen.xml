@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/medium_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,41 +19,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/card_view_background"
-            android:padding="16dp">
+            android:padding="@dimen/medium_margin">
 
             <TextView
                 android:id="@+id/person_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="@dimen/xsmall_margin"
                 android:text="@string/first_person_name"
                 android:textColor="@color/card_view_name_text_color"
-                android:textSize="30sp"
+                android:textSize="@dimen/xmedium_text"
                 app:layout_constraintStart_toStartOf="@id/person_image"
                 app:layout_constraintTop_toBottomOf="@id/person_image" />
 
             <ImageView
                 android:id="@+id/person_image"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="@dimen/xlarge_margin"
+                android:layout_height="@dimen/xlarge_margin"
                 android:src="@drawable/first_person_img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/buttonDeleteUser"
-                android:layout_width="150dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="30dp"
+                android:layout_width="@dimen/large_margin"
+                android:layout_height="@dimen/big_margin"
+                android:layout_marginStart="@dimen/xxmedium_margin"
                 android:layout_weight="1"
                 android:backgroundTint="@color/card_view_background"
                 android:hint="@string/delete_user"
                 android:textColorHint="@color/black"
-                app:cornerRadius="25dp"
+                app:cornerRadius="@dimen/xmedium_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/person_image"
                 app:strokeColor="@color/first_background_end_color"
-                app:strokeWidth="3dp" />
+                app:strokeWidth="@dimen/xsmall_margin" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -68,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_margin"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal"
@@ -77,31 +77,31 @@
             <Button
                 android:id="@+id/personNotButton"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="@dimen/big_margin"
                 android:layout_weight="1"
                 android:backgroundTint="@color/main_screen_button_not_background"
                 android:hint="@string/not"
                 android:textColorHint="@color/white"
-                app:cornerRadius="25dp"
+                app:cornerRadius="@dimen/xmedium_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:strokeColor="@color/card_view_background"
-                app:strokeWidth="2dp" />
+                app:strokeWidth="@dimen/small_margin" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/personHotButton"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="30dp"
+            android:layout_width="@dimen/zero_margin"
+            android:layout_height="@dimen/big_margin"
+            android:layout_marginStart="@dimen/xxmedium_margin"
             android:layout_weight="1"
             android:backgroundTint="@color/main_screen_button_hot_background"
             android:hint="@string/hot"
             android:textColorHint="@color/white"
-            app:cornerRadius="25dp"
+            app:cornerRadius="@dimen/xmedium_margin"
             app:strokeColor="@color/card_view_background"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="@dimen/small_margin" />
 
     </LinearLayout>
 

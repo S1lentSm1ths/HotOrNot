@@ -16,23 +16,24 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/sassy_text_color"
-            app:title="@string/create_account"
             android:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/create_account" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/createAccountProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            app:indicatorColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
 
         <ImageView
             android:id="@+id/appLogo"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="@dimen/large_margin"
+            android:layout_marginTop="@dimen/medium_margin"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_app_logo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,13 +45,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
             android:hint="@string/name"
             android:inputType="textPersonName"
-            android:paddingHorizontal="40dp"
+            android:paddingHorizontal="@dimen/xxmedium_margin"
             app:boxStrokeColor="@color/white"
             app:counterEnabled="true"
-            app:counterMaxLength="100"
+            app:counterMaxLength="@integer/name_max_chars"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/appLogo"
@@ -71,10 +71,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/last_name"
-            android:paddingHorizontal="40dp"
+            android:paddingHorizontal="@dimen/xxmedium_margin"
             app:boxStrokeColor="@color/white"
             app:counterEnabled="true"
-            app:counterMaxLength="100"
+            app:counterMaxLength="@integer/name_max_chars"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/appLogo"
@@ -94,8 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:paddingHorizontal="40dp"
-            app:boxStrokeColor="@color/sassy_text_color"
+            android:paddingHorizontal="@dimen/xxmedium_margin"
+            app:boxStrokeColor="@color/white"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/appLogo"
@@ -109,23 +109,86 @@
                 android:layout_height="match_parent" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/emailTextLayout"
+            app:layout_constraintStart_toStartOf="@+id/emailTextLayout"
+            app:layout_constraintTop_toBottomOf="@+id/emailTextLayout">
+
+            <RadioButton
+                android:id="@+id/genderManButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:buttonTint="@color/card_view_background"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/xxsmall_margin"
+                android:text="@string/man"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium_text"
+                app:layout_constraintEnd_toEndOf="@id/emailTextLayout"
+                app:layout_constraintStart_toStartOf="@id/emailTextLayout"
+                app:layout_constraintTop_toBottomOf="@id/emailTextLayout" />
+
+            <RadioButton
+                android:id="@+id/genderWomanButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:buttonTint="@color/card_view_background"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/xxsmall_margin"
+                android:text="@string/woman"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium_text"
+                app:layout_constraintEnd_toEndOf="@id/emailTextLayout"
+                app:layout_constraintStart_toStartOf="@id/emailTextLayout"
+                app:layout_constraintTop_toBottomOf="@id/emailTextLayout" />
+
+            <RadioButton
+                android:id="@+id/genderOtherButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:buttonTint="@color/card_view_background"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/xxsmall_margin"
+                android:text="@string/other"
+                android:checked="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium_text"
+                app:layout_constraintEnd_toEndOf="@id/emailTextLayout"
+                app:layout_constraintStart_toStartOf="@id/emailTextLayout"
+                app:layout_constraintTop_toBottomOf="@id/emailTextLayout" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/interestsDropDownMenu"
+            android:layout_width="@dimen/zero_margin"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:tooltipText="interests"
+            android:paddingHorizontal="@dimen/xxmedium_margin"
+            android:spinnerMode="dialog"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+
         <Button
             android:id="@+id/buttonRegister"
-            android:layout_width="150dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="@dimen/xlarge_margin"
+            android:layout_height="@dimen/big_margin"
+            android:layout_marginTop="@dimen/xxmedium_margin"
             android:backgroundTint="@color/card_view_background"
-            android:hint="@string/create_account"
+            android:hint="@string/register"
             android:textColorHint="@color/black"
-            app:cornerRadius="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailTextLayout" />
-
-<!--        <RadioGroup-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
+            app:cornerRadius="@dimen/xxmedium_margin"
+            app:layout_constraintEnd_toEndOf="@id/appLogo"
+            app:layout_constraintStart_toStartOf="@id/appLogo"
+            app:layout_constraintTop_toBottomOf="@+id/interestsDropDownMenu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
