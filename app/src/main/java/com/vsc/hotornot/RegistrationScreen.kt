@@ -26,13 +26,13 @@ import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
 import kotlinx.coroutines.selects.select
 
 
-class RegistrationScreen : Fragment() {
+class  RegistrationScreen : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
 
     private val userSharedPreferences = UserSharedPreferences(this.context)
     private lateinit var buttonRegister: Button
-    private var gender: String? = null
+    private var gender: String = "Other"
     private var selectedInterest: String = ""
 
     override fun onCreateView(
@@ -63,7 +63,7 @@ class RegistrationScreen : Fragment() {
             when (firstAndLastNameValidation(binding.firstNameEditText, binding.lastNameEditText)) {
                 true -> {
                     postTransactionDelayToMainScreen()
-                    userSharedPreferences.saveUserData()
+                    userSharedPreferences.saveUserData(binding.firstNameEditText, binding.lastNameEditText, gender, selectedInterest                     )
                 }
                 else ->
                     binding.createAccountProgressBar.isIndeterminate = false
@@ -123,12 +123,12 @@ class RegistrationScreen : Fragment() {
 
     private fun disableRegisterButton() {
         buttonRegister.setHintTextColor(resources.getColor(R.color.disabled_color))
-        buttonRegister.isClickable = false
+        buttonRegister.isEnabled = false
     }
 
     private fun activateRegisterButton() {
         buttonRegister.setHintTextColor(resources.getColor(R.color.black))
-        buttonRegister.isClickable = true
+        buttonRegister.isEnabled = true
     }
 
     private fun initSpinner() {

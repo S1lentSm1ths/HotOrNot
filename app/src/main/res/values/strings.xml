@@ -20,6 +20,7 @@
     <string name="woman">Woman</string>
     <string name="man">Man</string>
     <string name="interests">Interests</string>
+    <string name="profile_screen_title">Profile</string>
     <integer name="name_max_chars">100</integer>
     <string-array name="interests_array">
         <!--        <item>Interests</item>-->

@@ -191,7 +191,7 @@
             android:layout_width="@dimen/xlarge_margin"
             android:layout_height="@dimen/big_margin"
             android:layout_marginTop="@dimen/xxmedium_margin"
-            android:clickable="false"
+            android:enabled="false"
             android:backgroundTint="@color/card_view_background"
             android:hint="@string/register"
             android:textColorHint="@color/disabled_color"
