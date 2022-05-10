@@ -15,4 +15,5 @@
     <color name="main_screen_button_hot_background">#46244C</color>
     <color name="edit_text_helper_text_color">#FF1010</color>
     <color name="card_view_name_text_color">#2B2828</color>
+    <color name="disabled_color">#8A8686</color>
 </resources>
