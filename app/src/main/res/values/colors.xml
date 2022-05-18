@@ -9,11 +9,15 @@
     <color name="white">#FFFFFFFF</color>
     <color name="first_background_start_color">#EADB5B</color>
     <color name="first_background_end_color">#31C136</color>
-    <color name="sassy_text_color">#FF09A30F</color>
-    <color name="card_view_background">#DDE491</color>
+    <color name="sassy_text_color">#2D31FA</color>
+    <color name="card_view_background">#1473E8</color>
+    <color name="turquoise_color">#49FFED</color>
     <color name="main_screen_button_not_background">#2D31FA</color>
     <color name="main_screen_button_hot_background">#46244C</color>
     <color name="edit_text_helper_text_color">#FF1010</color>
     <color name="card_view_name_text_color">#2B2828</color>
     <color name="disabled_color">#8A8686</color>
+    <color name="clickable_text_color">#FF52F6</color>
+    <color name="shape_stroke_color">#DF6B46</color>
+    <color name="image_shape_background">#737372</color>
 </resources>

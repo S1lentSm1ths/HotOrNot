@@ -21,7 +21,11 @@
         android:id="@+id/mainScreen"
         android:name="com.vsc.hotornot.MainScreen"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/actionMainScreenToProfileScreen"
+            app:destination="@id/profileScreen" />
+    </fragment>
     <fragment
         android:id="@+id/registrationScreenFragment"
         android:name="com.vsc.hotornot.RegistrationScreen"
@@ -29,6 +33,15 @@
         tools:layout="@layout/fragment_registration_screen" >
         <action
             android:id="@+id/actionRegistrationScreenFragmentToMainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileScreen"
+        android:name="com.vsc.hotornot.ProfileScreen"
+        android:label="fragment_profile_screen"
+        tools:layout="@layout/fragment_profile_screen" >
+        <action
+            android:id="@+id/actionProfileScreenToMainScreen"
             app:destination="@id/mainScreen" />
     </fragment>
 </navigation>

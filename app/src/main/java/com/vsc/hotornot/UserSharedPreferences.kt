@@ -1,47 +1,33 @@
 package com.vsc.hotornot
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.widget.RadioButton
-import com.google.android.material.textfield.TextInputEditText
+import android.provider.ContactsContract
+import androidx.fragment.app.FragmentActivity
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
-class UserSharedPreferences(private val context: Context?) {
+const val USER_SHARED_PREFERENCES_KEY = "userSharedPreferences"
 
-    private val userSharedPreferencesKey = "userSharedPreferences"
+class UserSharedPreferences(activity: FragmentActivity?) {
 
-    fun saveUserData(firstNameEditText: TextInputEditText, lastNameEditText: TextInputEditText, gender: String?, interest: String) {
-        val userSharedPreferences = context?.getSharedPreferences(
-            userSharedPreferencesKey,
-            Context.MODE_PRIVATE
-        )
-        val editor = userSharedPreferences?.edit()
-        editor?.apply {
-            putString("first_name", firstNameEditText.toString())
-            putString("last_name", lastNameEditText.toString())
-            putString("gender", gender)
-            putString("interest", interest)
-        }?.apply()
+    private val userSharedPreferences = activity?.getSharedPreferences(
+        USER_SHARED_PREFERENCES_KEY,
+        Context.MODE_PRIVATE
+    )
+
+    fun saveUserData(user: User) {
+        val userData = Json.encodeToString(user)
+        userSharedPreferences?.edit()?.putString(USER_SHARED_PREFERENCES_KEY, userData)?.apply()
     }
 
-    fun getUserFirstName(): String? {
-        val userSharedPreferences = context?.getSharedPreferences(
-            userSharedPreferencesKey,
-            Context.MODE_PRIVATE
-        )
-        return userSharedPreferences?.getString("first_name", null)
+    fun getUserData(): User? {
+        val userData =
+            userSharedPreferences?.getString(USER_SHARED_PREFERENCES_KEY, null) ?: return null
+        return Json.decodeFromString(userData)
     }
 
     fun deleteUser() {
-        val userSharedPreferences = context?.getSharedPreferences(
-            userSharedPreferencesKey,
-            Context.MODE_PRIVATE
-        )
-        val editor = userSharedPreferences?.edit()
-        editor?.apply() {
-            remove("first_name")
-            remove("last_name")
-            remove("gender")
-            remove("interest")
-        }?.apply()
+        userSharedPreferences?.edit()?.remove(USER_SHARED_PREFERENCES_KEY)?.apply()
     }
 }

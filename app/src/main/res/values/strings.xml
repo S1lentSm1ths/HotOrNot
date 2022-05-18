@@ -21,13 +21,14 @@
     <string name="man">Man</string>
     <string name="interests">Interests</string>
     <string name="profile_screen_title">Profile</string>
+    <string name="navigation">navigation</string>
     <integer name="name_max_chars">100</integer>
     <string-array name="interests_array">
         <!--        <item>Interests</item>-->
+        <item>Apache Helicopters</item>
         <item>Males</item>
         <item>Females</item>
         <item>Drag Queens</item>
-        <item>Apache Helicopters</item>
         <item>Furries</item>
     </string-array>
 </resources>

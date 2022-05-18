@@ -1,19 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_image4"
     tools:context=".ProfileScreen">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_menu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/sassy_text_color"
+        android:background="@color/main_screen_button_not_background"
         android:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
         app:title="@string/profile_screen_title" />
+
+    <ImageButton
+        android:id="@+id/selectImageButton"
+        android:layout_width="@dimen/xlarge_margin"
+        android:layout_height="@dimen/xlarge_margin"
+        android:layout_marginTop="@dimen/xxmedium_margin"
+        android:background="@drawable/person_image_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
+
+    <ImageView
+        android:id="@+id/personImage"
+        android:layout_width="@dimen/xxbig_margin"
+        android:layout_height="@dimen/xxbig_margin"
+        android:layout_marginTop="@dimen/big_margin"
+        android:background="@drawable/person_image_ring"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_select_person_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
+
+    <TextView
+        android:id="@+id/firstAndLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_text"
+        android:textSize="@dimen/medium_text"
+        android:text="User name"
+        android:textColor="@color/black"
+        android:drawablePadding="8dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="@id/selectImageButton"
+        app:layout_constraintEnd_toEndOf="@id/selectImageButton"
+        app:layout_constraintTop_toBottomOf="@id/selectImageButton"
+        app:drawableStartCompat="@drawable/ic_login_person" />
+
+    <TextView
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text"
+        android:text="User email"
+        android:textColor="@color/black"
+        android:drawablePadding="8dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="@id/selectImageButton"
+        app:layout_constraintEnd_toEndOf="@id/selectImageButton"
+        app:layout_constraintTop_toBottomOf="@id/firstAndLastName"
+        app:drawableStartCompat="@drawable/ic_email" />
+
+    <TextView
+        android:id="@+id/userSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/medium_text"
+        android:text="User sex"
+        android:textColor="@color/black"
+        android:drawablePadding="8dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="@id/selectImageButton"
+        app:layout_constraintEnd_toEndOf="@id/selectImageButton"
+        app:layout_constraintTop_toBottomOf="@id/userEmail"
+        app:drawableStartCompat="@drawable/ic_man" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

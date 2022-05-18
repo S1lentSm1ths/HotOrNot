@@ -11,10 +11,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.test.core.app.ApplicationProvider
@@ -29,8 +26,7 @@ import kotlinx.coroutines.selects.select
 class  RegistrationScreen : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
-
-    private val userSharedPreferences = UserSharedPreferences(this.context)
+    private lateinit var userSharedPreferences: UserSharedPreferences
     private lateinit var buttonRegister: Button
     private var gender: String = "Other"
     private var selectedInterest: String = ""
@@ -45,6 +41,7 @@ class  RegistrationScreen : Fragment() {
         onFieldsFill()
         emailValidation()
         onGenderButtonSelect()
+        getUserSharedPreferencesInstance()
         onButtonRegisterClicked()
         return binding.root
     }
@@ -57,13 +54,18 @@ class  RegistrationScreen : Fragment() {
         buttonRegister = binding.buttonRegister
     }
 
+    private fun getUserSharedPreferencesInstance() {
+        userSharedPreferences = UserSharedPreferences(activity)
+    }
+
     private fun onButtonRegisterClicked() {
         buttonRegister.setOnClickListener {
             binding.createAccountProgressBar.isIndeterminate = true
             when (firstAndLastNameValidation(binding.firstNameEditText, binding.lastNameEditText)) {
                 true -> {
+                    val user = User(binding.firstNameEditText.text.toString(), binding.lastNameEditText.text.toString(), binding.emailEditText.text.toString(), gender, selectedInterest)
+                    userSharedPreferences.saveUserData(user)
                     postTransactionDelayToMainScreen()
-                    userSharedPreferences.saveUserData(binding.firstNameEditText, binding.lastNameEditText, gender, selectedInterest                     )
                 }
                 else ->
                     binding.createAccountProgressBar.isIndeterminate = false

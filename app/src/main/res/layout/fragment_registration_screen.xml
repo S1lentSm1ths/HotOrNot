@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/first_layout_background"
+    android:background="@drawable/background_image4"
     tools:context=".RegistrationScreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
             android:layout_height="@dimen/large_margin"
             android:layout_marginTop="@dimen/medium_margin"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_app_logo"
+            android:src="@drawable/app_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/createAccountProgressBar" />
@@ -123,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:buttonTint="@color/card_view_background"
+                android:buttonTint="@color/turquoise_color"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/xxsmall_margin"
                 android:text="@string/man"
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:buttonTint="@color/card_view_background"
+                android:buttonTint="@color/turquoise_color"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/xxsmall_margin"
                 android:text="@string/woman"
@@ -153,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:buttonTint="@color/card_view_background"
+                android:buttonTint="@color/turquoise_color"
                 android:checked="true"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/xxsmall_margin"
@@ -165,40 +165,48 @@
                 app:layout_constraintTop_toBottomOf="@id/emailTextLayout" />
         </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinnerBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/interests"
-            android:textSize="@dimen/small_text"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/interestsDropDownMenu"
-            app:layout_constraintStart_toStartOf="@id/interestsDropDownMenu"/>
-        <Spinner
-            android:id="@+id/interestsDropDownMenu"
-            android:layout_width="@dimen/xlarge_margin"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/xxmedium_margin"
+            android:hint="@string/name"
+            android:inputType="none"
             android:paddingHorizontal="@dimen/xxmedium_margin"
-            android:prompt="@string/interests"
-            android:elevation="@dimen/medium_margin"
-            android:spinnerMode="dialog"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+            app:boxStrokeColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/appLogo"
+            app:layout_constraintStart_toStartOf="@id/appLogo"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+            <Spinner
+                android:id="@+id/interestsDropDownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxmedium_margin"
+                android:elevation="@dimen/medium_margin"
+                android:paddingHorizontal="@dimen/xxmedium_margin"
+                android:prompt="@string/interests"
+                android:spinnerMode="dialog"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="@dimen/xlarge_margin"
             android:layout_height="@dimen/big_margin"
             android:layout_marginTop="@dimen/xxmedium_margin"
-            android:enabled="false"
             android:backgroundTint="@color/card_view_background"
+            android:enabled="false"
             android:hint="@string/register"
             android:textColorHint="@color/disabled_color"
             app:cornerRadius="@dimen/xxmedium_margin"
             app:layout_constraintEnd_toEndOf="@id/appLogo"
             app:layout_constraintStart_toStartOf="@id/appLogo"
-            app:layout_constraintTop_toBottomOf="@+id/interestsDropDownMenu" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerBox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

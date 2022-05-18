@@ -2,7 +2,9 @@ package com.vsc.hotornot
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.*
+import android.widget.Toast
+import androidx.navigation.findNavController
 import com.vsc.hotornot.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

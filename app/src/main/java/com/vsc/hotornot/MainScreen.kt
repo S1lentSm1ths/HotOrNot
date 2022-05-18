@@ -1,28 +1,40 @@
 package com.vsc.hotornot
 
-import android.content.Context
+import android.content.Intent
+import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 
 class MainScreen : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private val userSharedPreferences = UserSharedPreferences(this.context)
+    private lateinit var userSharedPreferences: UserSharedPreferences
+    private lateinit var user: User
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+        getUserSharedPreferencesInstance()
+        user = userSharedPreferences.getUserData()!!
+        setEmail()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         changePersonImageOnClick()
-        onButtonDeleteUserClicked()
+        onEmailClicked()
+        onButtonProfileScreenClicked()
+    }
+
+    private fun getUserSharedPreferencesInstance() {
+        userSharedPreferences = UserSharedPreferences(activity)
     }
 
     private fun changePersonImageOnClick() {
@@ -50,21 +62,49 @@ class MainScreen : Fragment() {
         }
     }
 
-    private fun onButtonDeleteUserClicked() {
-        binding.buttonDeleteUser.setOnClickListener {
-            userSharedPreferences.deleteUser()
+    private fun setEmail() {
+        binding.userEmail.hint = user.email
+        binding.userEmail.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+    }
+
+    private fun sendEmail() {
+        val userFirstName = user.firstName
+        val userLastName = user.lastName
+        val userEmail = user.email
+        val sendEmailText = "$userFirstName $userLastName zdr bepce ko pr"
+        val emailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:$userEmail"))
+        emailIntent.type = "message/rfc822"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, userEmail)
+        emailIntent.putExtra(Intent.EXTRA_TEXT, sendEmailText)
+        startActivity(Intent.createChooser(emailIntent, "Choose app"))
+    }
+
+    private fun onEmailClicked() {
+        binding.userEmail.setOnClickListener {
+            sendEmail()
         }
     }
 
-//    private fun deleteUser() {
-//        val userSharedPreferences = activity?.getSharedPreferences(
-//            Constants.userSharedPreferencesKey,
-//            Context.MODE_PRIVATE
-//        )
-//        val editor = userSharedPreferences?.edit()
-//        editor?.apply() {
-//            remove("first_name")
-//            remove("last_name")
-//        }?.apply()
+    private fun onButtonProfileScreenClicked() {
+        binding.profileScreenMenu.setOnClickListener {
+            navigateToProfileScreen()
+        }
+    }
+
+    private fun navigateToProfileScreen() {
+        findNavController().navigate(R.id.actionMainScreenToProfileScreen)
+    }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.main_screen_options_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.overflowMenu){
+////            findNavController().navigate(R.id.actionMainScreenToProfileScreen)
+//            Toast.makeText(this.context, "Clicked", Toast.LENGTH_LONG).show()
+//        }
+//        return true
 //    }
 }
