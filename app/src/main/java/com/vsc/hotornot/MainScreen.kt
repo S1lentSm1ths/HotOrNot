@@ -4,11 +4,13 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
+import com.vsc.hotornot.model.User
 
 class MainScreen : Fragment() {
 
@@ -71,12 +73,16 @@ class MainScreen : Fragment() {
         val userFirstName = user.firstName
         val userLastName = user.lastName
         val userEmail = user.email
-        val sendEmailText = "$userFirstName $userLastName zdr bepce ko pr"
-        val emailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:$userEmail"))
-        emailIntent.type = "message/rfc822"
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, userEmail)
+        val emailSubject = "Android dev"
+        val sayHello = "zdr bepce ko pr"
+        val sendEmailText = "$userFirstName $userLastName $sayHello"
+        val chooseApp = "Choose app"
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(userEmail))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
         emailIntent.putExtra(Intent.EXTRA_TEXT, sendEmailText)
-        startActivity(Intent.createChooser(emailIntent, "Choose app"))
+        startActivity(Intent.createChooser(emailIntent, chooseApp))
     }
 
     private fun onEmailClicked() {

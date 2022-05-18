@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.databinding.FragmentProfileScreenBinding
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.media.MediaBrowserServiceCompat.RESULT_OK
+import com.vsc.hotornot.model.User
 
 private const val SELECT_PICTURE = 200
 
@@ -64,11 +63,9 @@ class ProfileScreen : Fragment() {
     private fun checkUserSex() {
         if (user.gender == man) {
             setMan()
-        }
-        else if (user.gender == woman){
+        } else if (user.gender == woman) {
             setWoman()
-        }
-        else {
+        } else {
             setOther()
         }
     }

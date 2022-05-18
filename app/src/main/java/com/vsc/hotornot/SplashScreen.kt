@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
 import com.vsc.hotornot.databinding.FragmentSplashScreenBinding
+import com.vsc.hotornot.model.User
 
 class SplashScreen : Fragment() {
 
@@ -28,7 +29,6 @@ class SplashScreen : Fragment() {
 
     private fun getUserSharedPreferencesInstance() {
         userSharedPreferences = UserSharedPreferences(activity)
-        userSharedPreferences.deleteUser()
     }
 
     private fun checkIfUserExist(user: User?) {

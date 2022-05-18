@@ -1,29 +1,27 @@
 package com.vsc.hotornot
 
-import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.BoringLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.test.core.app.ApplicationProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
 import com.vsc.hotornot.R.id.actionRegistrationScreenFragmentToMainScreen
-import com.vsc.hotornot.R.id.add
 import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
-import kotlinx.coroutines.selects.select
+import com.vsc.hotornot.model.User
 
 
-class  RegistrationScreen : Fragment() {
+class RegistrationScreen : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
@@ -63,7 +61,13 @@ class  RegistrationScreen : Fragment() {
             binding.createAccountProgressBar.isIndeterminate = true
             when (firstAndLastNameValidation(binding.firstNameEditText, binding.lastNameEditText)) {
                 true -> {
-                    val user = User(binding.firstNameEditText.text.toString(), binding.lastNameEditText.text.toString(), binding.emailEditText.text.toString(), gender, selectedInterest)
+                    val user = User(
+                        binding.firstNameEditText.text.toString(),
+                        binding.lastNameEditText.text.toString(),
+                        binding.emailEditText.text.toString(),
+                        gender,
+                        selectedInterest
+                    )
                     userSharedPreferences.saveUserData(user)
                     postTransactionDelayToMainScreen()
                 }

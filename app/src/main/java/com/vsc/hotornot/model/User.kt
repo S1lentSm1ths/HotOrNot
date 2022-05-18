@@ -1,4 +1,4 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.model
 
 import kotlinx.serialization.Serializable
 
