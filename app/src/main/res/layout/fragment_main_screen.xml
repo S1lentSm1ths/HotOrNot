@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_image4"
-    tools:context=".MainScreen">
+    tools:context=".MainScreenFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_menu"
@@ -21,10 +21,10 @@
         android:layout_width="@dimen/big_margin"
         android:layout_height="@dimen/xxxmedium_margin"
         android:background="@color/main_screen_button_not_background"
+        android:contentDescription="@string/navigation"
         android:src="@drawable/ic_login_person"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/navigation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/personCardView"
@@ -85,6 +85,14 @@
                 app:strokeColor="@color/first_background_end_color"
                 app:strokeWidth="@dimen/xsmall_margin" />
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/userEmail">
+
+            </com.google.android.material.chip.ChipGroup>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,7 +117,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.9" />
 
 
     <Button

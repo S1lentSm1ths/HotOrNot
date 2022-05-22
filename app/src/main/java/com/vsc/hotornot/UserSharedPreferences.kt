@@ -1,20 +1,21 @@
 package com.vsc.hotornot
 
 import android.content.Context
-import androidx.fragment.app.FragmentActivity
+import android.content.SharedPreferences
+
 import com.vsc.hotornot.model.User
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-const val USER_SHARED_PREFERENCES_KEY = "userSharedPreferences"
+class UserSharedPreferences(context: Context?) {
 
-class UserSharedPreferences(activity: FragmentActivity?) {
-
-    private val userSharedPreferences = activity?.getSharedPreferences(
-        USER_SHARED_PREFERENCES_KEY,
-        Context.MODE_PRIVATE
-    )
+    init {
+        userSharedPreferences = context?.getSharedPreferences(
+            USER_SHARED_PREFERENCES_KEY,
+            Context.MODE_PRIVATE
+        )
+    }
 
     fun saveUserData(user: User) {
         val userData = Json.encodeToString(user)
@@ -29,5 +30,19 @@ class UserSharedPreferences(activity: FragmentActivity?) {
 
     fun deleteUser() {
         userSharedPreferences?.edit()?.remove(USER_SHARED_PREFERENCES_KEY)?.apply()
+    }
+
+    companion object {
+
+        private var userSharedPreferences: SharedPreferences? = null
+        private const val USER_SHARED_PREFERENCES_KEY = "userSharedPreferences"
+        private var instance: UserSharedPreferences? = null
+
+        fun getInstance(context: Context?): UserSharedPreferences {
+            if (instance == null) {
+                instance = UserSharedPreferences(context)
+            }
+            return instance as UserSharedPreferences
+        }
     }
 }

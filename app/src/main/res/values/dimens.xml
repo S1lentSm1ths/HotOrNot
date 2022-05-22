@@ -5,7 +5,8 @@
     <dimen name="zero_margin">0dp</dimen>
     <dimen name="small_margin">2dp</dimen>
     <dimen name="xsmall_margin">5dp</dimen>
-    <dimen name="xxsmall_margin">12dp</dimen>
+    <dimen name="xxsmall_margin">8dp</dimen>
+    <dimen name="xxxsmall_margin">12dp</dimen>
     <dimen name="medium_margin">20dp</dimen>
     <dimen name="xmedium_margin">25dp</dimen>
     <dimen name="xxmedium_margin">30dp</dimen>

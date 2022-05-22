@@ -1,6 +1,7 @@
 <resources>
+
+<!--    STRINGS-->
     <string name="app_name">HotOrNot</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="first_person_name">Ivan</string>
     <string name="main_screen_buttons_text">Not</string>
@@ -22,13 +23,45 @@
     <string name="interests">Interests</string>
     <string name="profile_screen_title">Profile</string>
     <string name="navigation">navigation</string>
+    <string name="email_say_hello">zdr bepce ko pr</string>
+    <string name="email_subject">Android dev</string>
+    <string name="email_chooser_text">Send with</string>
+    <string name="email_type">text/plain</string>
+    <string name="gallery_select_image_text">Select Picture</string>
+    <string name="gallery_type">image/*</string>
+<!--    STRINGS-->
+
+<!--    INTEGERS-->
     <integer name="name_max_chars">100</integer>
+    <item name="thirty_three_percents" format="float" type="dimen">0.33</item>
+    <item name="sixty_six_percents" format="float" type="dimen">0.66</item>
+    <item name="sixty_six_percents" format="float" type="dimen">0.66</item>
+<!--    INTEGERS-->
+
+<!--    ARRAYS-->
     <string-array name="interests_array">
-        <!--        <item>Interests</item>-->
         <item>Apache Helicopters</item>
         <item>Males</item>
         <item>Females</item>
         <item>Drag Queens</item>
         <item>Furries</item>
     </string-array>
+
+    <string-array name="characteristics">
+        <item>Traveling</item>
+        <item>Running</item>
+        <item>Training</item>
+        <item>Football</item>
+        <item>Music</item>
+        <item>Motorcycles</item>
+        <item>Photography</item>
+        <item>Learning</item>
+        <item>Art</item>
+        <item>Sport</item>
+        <item>Films</item>
+        <item>Cooking</item>
+        <item>Coding</item>
+        <item>Gaming</item>
+    </string-array>
+<!--    ARRAYS-->
 </resources>

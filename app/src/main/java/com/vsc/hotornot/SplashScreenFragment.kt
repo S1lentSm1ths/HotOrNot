@@ -12,7 +12,7 @@ import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
 import com.vsc.hotornot.databinding.FragmentSplashScreenBinding
 import com.vsc.hotornot.model.User
 
-class SplashScreen : Fragment() {
+class SplashScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
@@ -28,7 +28,7 @@ class SplashScreen : Fragment() {
     }
 
     private fun getUserSharedPreferencesInstance() {
-        userSharedPreferences = UserSharedPreferences(activity)
+        userSharedPreferences = UserSharedPreferences.getInstance(this.context)
     }
 
     private fun checkIfUserExist(user: User?) {

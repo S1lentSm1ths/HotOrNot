@@ -18,15 +18,16 @@ import com.google.android.material.textfield.TextInputEditText
 import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
 import com.vsc.hotornot.R.id.actionRegistrationScreenFragmentToMainScreen
 import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
+import com.vsc.hotornot.model.Gender
 import com.vsc.hotornot.model.User
 
 
-class RegistrationScreen : Fragment() {
+class RegistrationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
     private lateinit var buttonRegister: Button
-    private var gender: String = "Other"
+    private var gender = Gender.OTHER
     private var selectedInterest: String = ""
 
     override fun onCreateView(
@@ -53,7 +54,7 @@ class RegistrationScreen : Fragment() {
     }
 
     private fun getUserSharedPreferencesInstance() {
-        userSharedPreferences = UserSharedPreferences(activity)
+        userSharedPreferences = UserSharedPreferences.getInstance(this.context)
     }
 
     private fun onButtonRegisterClicked() {
@@ -169,13 +170,13 @@ class RegistrationScreen : Fragment() {
 
     private fun onGenderButtonSelect() {
         binding.genderManButton.setOnClickListener() {
-            gender = binding.genderManButton.text.toString()
+            gender = Gender.MAN
         }
         binding.genderWomanButton.setOnClickListener() {
-            gender = binding.genderWomanButton.text.toString()
+            gender = Gender.WOMAN
         }
         binding.genderOtherButton.setOnClickListener() {
-            gender = binding.genderOtherButton.text.toString()
+            gender = Gender.OTHER
         }
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.vsc.hotornot.SplashScreen"
+        android:name="com.vsc.hotornot.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.vsc.hotornot.MainScreen"
+        android:name="com.vsc.hotornot.MainScreenFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationScreenFragment"
-        android:name="com.vsc.hotornot.RegistrationScreen"
+        android:name="com.vsc.hotornot.RegistrationScreenFragment"
         android:label="fragment_registration_screen"
         tools:layout="@layout/fragment_registration_screen" >
         <action

@@ -2,17 +2,17 @@ package com.vsc.hotornot
 
 import android.content.Intent
 import android.graphics.Paint
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.User
 
-class MainScreen : Fragment() {
+class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
@@ -26,6 +26,7 @@ class MainScreen : Fragment() {
         getUserSharedPreferencesInstance()
         user = userSharedPreferences.getUserData()!!
         setEmail()
+        generateListOfFriends()
         return binding.root
     }
 
@@ -36,29 +37,32 @@ class MainScreen : Fragment() {
     }
 
     private fun getUserSharedPreferencesInstance() {
-        userSharedPreferences = UserSharedPreferences(activity)
+        userSharedPreferences = UserSharedPreferences.getInstance(this.context)
     }
 
     private fun changePersonImageOnClick() {
-        val personImage = binding.personImage
+
         binding.personHotButton.setOnClickListener {
-            personImage.setImageResource(R.drawable.second_person_img)
-            binding.personName.text = getString(R.string.name_stan)
-            checkPersonName()
+            changePersonNameAndImage(R.drawable.second_person_img, R.string.name_stan)
         }
         binding.personNotButton.setOnClickListener {
-            personImage.setImageResource(R.drawable.third_person_img)
-            binding.personName.text = getString(R.string.name_georgi)
-            checkPersonName()
+            changePersonNameAndImage(R.drawable.third_person_img, R.string.name_georgi)
         }
+    }
+
+    private fun changePersonNameAndImage(drawableImage: Int, personName: Int) {
+        val personImage = binding.personImage
+        personImage.setImageResource(drawableImage)
+        binding.personName.text = getString(personName)
+        checkPersonName()
     }
 
     private fun checkPersonName() {
         val personNameText = binding.personName.text
-        if (personNameText == "Georgi") {
+        if (personNameText == R.string.name_georgi.toString()) {
             binding.personNotButton.visibility = View.GONE
             binding.personHotButton.visibility = View.VISIBLE
-        } else if (personNameText == "Stan") {
+        } else if (personNameText == R.string.name_stan.toString()) {
             binding.personHotButton.visibility = View.GONE
             binding.personNotButton.visibility = View.VISIBLE
         }
@@ -73,16 +77,20 @@ class MainScreen : Fragment() {
         val userFirstName = user.firstName
         val userLastName = user.lastName
         val userEmail = user.email
-        val emailSubject = "Android dev"
-        val sayHello = "zdr bepce ko pr"
+        val emailSubject = getStringFromResources(R.string.email_subject)
+        val sayHello = getStringFromResources(R.string.email_say_hello)
         val sendEmailText = "$userFirstName $userLastName $sayHello"
-        val chooseApp = "Choose app"
+        val chooseApp = getStringFromResources(R.string.email_chooser_text)
         val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.type = "text/plain"
+        emailIntent.type = getStringFromResources(R.string.email_type)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(userEmail))
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
         emailIntent.putExtra(Intent.EXTRA_TEXT, sendEmailText)
         startActivity(Intent.createChooser(emailIntent, chooseApp))
+    }
+
+    private fun getStringFromResources(resource: Int): String {
+        return resources.getString(resource)
     }
 
     private fun onEmailClicked() {
@@ -101,16 +109,18 @@ class MainScreen : Fragment() {
         findNavController().navigate(R.id.actionMainScreenToProfileScreen)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.main_screen_options_menu, menu)
-//        super.onCreateOptionsMenu(menu, inflater)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.overflowMenu){
-////            findNavController().navigate(R.id.actionMainScreenToProfileScreen)
-//            Toast.makeText(this.context, "Clicked", Toast.LENGTH_LONG).show()
-//        }
-//        return true
-//    }
+    private fun generateListOfFriends() {
+        val listOfFiends = resources.getStringArray(R.array.characteristics).toList()
+        listOfFiends.shuffled()
+        val randomCharacteristics = (0..listOfFiends.size).random()
+        createChips(randomCharacteristics, listOfFiends)
+    }
+
+    private fun createChips(chips: Int, friendsCharacteristics: List<String>) {
+        for (i in 0..chips) {
+            val chip = Chip(activity)
+            chip.text = (friendsCharacteristics[i])
+            binding.chipGroup.addView(chip)
+        }
+    }
 }
