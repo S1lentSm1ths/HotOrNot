@@ -13,14 +13,13 @@ import com.vsc.hotornot.model.Gender
 import com.vsc.hotornot.model.User
 
 private const val RESULT_CODE = 200
+private const val ICON_POSITION = 0
 
 class ProfileScreen : Fragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
     private lateinit var user: User
-    private val man = Gender.MAN
-    private val woman = Gender.WOMAN
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,32 +57,17 @@ class ProfileScreen : Fragment() {
     private fun setUserInfo() {
         binding.firstAndLastName.text = user.firstName + " " + user.lastName
         binding.userEmail.text = user.email
-        checkUserSex()
+        setGenderUi(user.gender)
     }
 
-    private fun checkUserSex() {
-        if (user.gender == Gender.MAN) {
-            setMan()
-        } else if (user.gender == Gender.WOMAN) {
-            setWoman()
-        } else {
-            setOther()
-        }
-    }
-
-    private fun setMan() {
-        binding.userSex.text = man.toString()
-        binding.userSex.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_man, 0, 0, 0)
-    }
-
-    private fun setWoman() {
-        binding.userSex.text = woman.toString()
-        binding.userSex.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_woman, 0, 0, 0)
-    }
-
-    private fun setOther() {
-        binding.userSex.text = R.string.other.toString()
-        binding.userSex.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_login_person, 0, 0, 0)
+    private fun setGenderUi(gender: Gender) {
+        binding.userSex.text = resources.getString(gender.genderText)
+        binding.userSex.setCompoundDrawablesWithIntrinsicBounds(
+            gender.genderIcon,
+            ICON_POSITION,
+            ICON_POSITION,
+            ICON_POSITION
+        )
     }
 
     private fun imageChooser() {
@@ -96,7 +80,12 @@ class ProfileScreen : Fragment() {
 
         // pass the constant to compare it
         // with the returned requestCode
-        startActivityForResult(Intent.createChooser(galleryIntent, R.string.gallery_select_image_text.toString()), RESULT_CODE)
+        startActivityForResult(
+            Intent.createChooser(
+                galleryIntent,
+                R.string.gallery_select_image_text.toString()
+            ), RESULT_CODE
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

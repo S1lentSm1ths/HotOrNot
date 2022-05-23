@@ -13,7 +13,8 @@
     <dimen name="xxxmedium_margin">50dp</dimen>
     <dimen name="big_margin">60dp</dimen>
     <dimen name="xbig_margin">70dp</dimen>
-    <dimen name="xxbig_margin">120dp</dimen>
+    <dimen name="xxbig_margin">100dp</dimen>
+    <dimen name="xxxbig_margin">120dp</dimen>
     <dimen name="large_margin">150dp</dimen>
     <dimen name="xlarge_margin">180dp</dimen>
     <dimen name="xxlarge_margin">220dp</dimen>

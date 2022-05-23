@@ -3,9 +3,9 @@
     android:shape="ring"
     android:thicknessRatio="1.9"
     android:useLevel="false" >
-    <solid android:color="@android:color/transparent" />
+    <solid android:color="@color/main_screen_button_not_background" />
 
     <stroke
-        android:width="10dp"
+        android:width="@dimen/xxsmall_margin"
         android:color="@android:color/white" />
 </shape>

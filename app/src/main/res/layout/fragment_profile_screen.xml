@@ -23,17 +23,16 @@
         android:layout_width="@dimen/xlarge_margin"
         android:layout_height="@dimen/xlarge_margin"
         android:layout_marginTop="@dimen/xxmedium_margin"
-        android:background="@drawable/person_image_shape"
+        android:background="@drawable/person_image_ring"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
 
     <ImageView
         android:id="@+id/personImage"
-        android:layout_width="@dimen/xxbig_margin"
-        android:layout_height="@dimen/xxbig_margin"
+        android:layout_width="@dimen/xxxbig_margin"
+        android:layout_height="@dimen/xxxbig_margin"
         android:layout_marginTop="@dimen/big_margin"
-        android:background="@drawable/person_image_ring"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_select_person_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,21 +43,25 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero_margin"
-        android:layout_margin="@dimen/xxmedium_margin"
-        app:cardCornerRadius="@dimen/xbig_margin"
+        android:layout_marginTop="@dimen/xxxmedium_margin"
+        android:layout_marginStart="@dimen/xxxsmall_margin"
+        android:layout_marginEnd="@dimen/xxxsmall_margin"
+        app:cardCornerRadius="@dimen/xxbig_margin"
         android:background="@drawable/card_view_background"
         app:layout_constraintTop_toBottomOf="@id/selectImageButton">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/xxmedium_margin"
             android:background="@drawable/card_view_background">
 
             <TextView
                 android:id="@+id/firstAndLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium_margin"
+
+                android:layout_marginStart="@dimen/xxmedium_margin"
                 android:drawablePadding="@dimen/xxsmall_margin"
                 android:padding="@dimen/xsmall_margin"
                 android:text="User name"
@@ -66,8 +69,7 @@
                 android:textSize="@dimen/medium_text"
                 app:drawableStartCompat="@drawable/ic_login_person"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/userEmail"

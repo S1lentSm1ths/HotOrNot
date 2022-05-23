@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.User
+import java.util.Collections.min
 import java.util.Collections.shuffle
 
 class MainScreenFragment : Fragment() {
@@ -75,23 +76,13 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun sendEmail() {
-        val userFirstName = user.firstName
-        val userLastName = user.lastName
-        val userEmail = user.email
-        val emailSubject = getStringFromResources(R.string.email_subject)
-        val sayHello = getStringFromResources(R.string.email_say_hello)
-        val sendEmailText = "$userFirstName $userLastName $sayHello"
-        val chooseApp = getStringFromResources(R.string.email_chooser_text)
+        val sendEmailText = "${user.firstName} ${user.lastName} ${resources.getString(R.string.email_say_hello)}"
         val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.type = getStringFromResources(R.string.email_type)
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(userEmail))
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject)
+        emailIntent.type = resources.getString(R.string.email_type)
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(user.email))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.email_subject))
         emailIntent.putExtra(Intent.EXTRA_TEXT, sendEmailText)
-        startActivity(Intent.createChooser(emailIntent, chooseApp))
-    }
-
-    private fun getStringFromResources(resource: Int): String {
-        return resources.getString(resource)
+        startActivity(Intent.createChooser(emailIntent, resources.getString(R.string.email_chooser_text)))
     }
 
     private fun onEmailClicked() {
@@ -111,14 +102,16 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun generateListOfFriends() {
+        val minChipsCount = 1
         val listOfFiends = resources.getStringArray(R.array.characteristics).toList()
         shuffle(listOfFiends)
-        val randomCharacteristics = (0..listOfFiends.size).random()
+        val randomCharacteristics = (minChipsCount..listOfFiends.size).random()
         createChips(randomCharacteristics, listOfFiends)
     }
 
     private fun createChips(chips: Int, friendsCharacteristics: List<String>) {
-        for (i in 0..chips) {
+        val minLoopNumber = 0
+        for (i in minLoopNumber..chips) {
             val chip = Chip(activity)
             chip.text = (friendsCharacteristics[i])
             binding.chipGroup.addView(chip)
