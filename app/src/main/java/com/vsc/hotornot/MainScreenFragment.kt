@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.User
+import java.util.Collections.shuffle
 
 class MainScreenFragment : Fragment() {
 
@@ -111,7 +112,7 @@ class MainScreenFragment : Fragment() {
 
     private fun generateListOfFriends() {
         val listOfFiends = resources.getStringArray(R.array.characteristics).toList()
-        listOfFiends.shuffled()
+        shuffle(listOfFiends)
         val randomCharacteristics = (0..listOfFiends.size).random()
         createChips(randomCharacteristics, listOfFiends)
     }

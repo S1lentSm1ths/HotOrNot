@@ -2,6 +2,7 @@ package com.vsc.hotornot
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.vsc.hotornot.model.Friend
 
 import com.vsc.hotornot.model.User
 import kotlinx.serialization.decodeFromString
@@ -32,10 +33,21 @@ class UserSharedPreferences(context: Context?) {
         userSharedPreferences?.edit()?.remove(USER_SHARED_PREFERENCES_KEY)?.apply()
     }
 
+    fun setListOfFriends(friends: List<Friend>) {
+        val friendsData = Json.encodeToString(friends)
+        userSharedPreferences?.edit()?.putString(FRIENDS_SHARED_PREFERENCES_KEY, friendsData)?.apply()
+    }
+
+    fun getFriends(): Friend? {
+        val friendsData = userSharedPreferences?.getString(FRIENDS_SHARED_PREFERENCES_KEY, null) ?: return null
+        return Json.decodeFromString(friendsData)
+    }
+
     companion object {
 
         private var userSharedPreferences: SharedPreferences? = null
         private const val USER_SHARED_PREFERENCES_KEY = "userSharedPreferences"
+        private const val FRIENDS_SHARED_PREFERENCES_KEY = "friendSharedPreferences"
         private var instance: UserSharedPreferences? = null
 
         fun getInstance(context: Context?): UserSharedPreferences {

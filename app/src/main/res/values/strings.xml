@@ -34,9 +34,11 @@
 <!--    INTEGERS-->
     <integer name="name_max_chars">100</integer>
     <item name="thirty_three_percents" format="float" type="dimen">0.33</item>
-    <item name="sixty_six_percents" format="float" type="dimen">0.66</item>
-    <item name="sixty_six_percents" format="float" type="dimen">0.66</item>
-<!--    INTEGERS-->
+    <item name="guidelineStart" format="float" type="integer">0.33</item>
+    <item name="guidelineEnd" format="float" type="integer">0.66</item>
+    <item name="guidelineBottom" format="float" type="integer">0.9</item>
+    "@integer/guidelineStart"
+    <!--    INTEGERS-->
 
 <!--    ARRAYS-->
     <string-array name="interests_array">
