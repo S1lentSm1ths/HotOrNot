@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/first_layout_background"
-    tools:context=".SplashScreen">
+    android:background="@drawable/background_image4"
+    tools:context=".SplashScreenFragment">
 
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_app_logo"
-        android:scaleType="centerCrop"
+        android:layout_width="@dimen/xxlarge_margin"
+        android:layout_height="@dimen/xxlarge_margin"
+        android:scaleType="fitXY"
+        android:src="@drawable/app_logo"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ｏ(≧▽≦)Ｏ"
+        android:text="@string/app_text"
         android:textSize="@dimen/medium_text"
         android:textColor="@color/sassy_text_color"
         app:layout_constraintEnd_toEndOf="parent"

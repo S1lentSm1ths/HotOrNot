@@ -7,16 +7,41 @@
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.vsc.hotornot.SplashScreen"
+        android:name="com.vsc.hotornot.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/actionSplashScreenToMainScreen"
             app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/actionSplashScreenToRegistrationScreenFragment"
+            app:destination="@id/registrationScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.vsc.hotornot.MainScreen"
+        android:name="com.vsc.hotornot.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/actionMainScreenToProfileScreen"
+            app:destination="@id/profileScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationScreenFragment"
+        android:name="com.vsc.hotornot.RegistrationScreenFragment"
+        android:label="fragment_registration_screen"
+        tools:layout="@layout/fragment_registration_screen" >
+        <action
+            android:id="@+id/actionRegistrationScreenFragmentToMainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileScreen"
+        android:name="com.vsc.hotornot.ProfileScreen"
+        android:label="fragment_profile_screen"
+        tools:layout="@layout/fragment_profile_screen" >
+        <action
+            android:id="@+id/actionProfileScreenToMainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
 </navigation>
