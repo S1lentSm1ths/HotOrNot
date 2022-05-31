@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.User
-import java.util.Collections.min
-import java.util.Collections.shuffle
 
 class MainScreenFragment : Fragment() {
 
@@ -27,8 +24,8 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         getUserSharedPreferencesInstance()
         user = userSharedPreferences.getUserData()!!
+        setRandomPerson()
         setEmail()
-        generateListOfFriends()
         return binding.root
     }
 
@@ -42,17 +39,41 @@ class MainScreenFragment : Fragment() {
         userSharedPreferences = UserSharedPreferences.getInstance(this.context)
     }
 
-    private fun changePersonImageOnClick() {
-
-        binding.personHotButton.setOnClickListener {
-            changePersonNameAndImage(R.drawable.second_person_img, R.string.name_stan)
-        }
-        binding.personNotButton.setOnClickListener {
-            changePersonNameAndImage(R.drawable.third_person_img, R.string.name_georgi)
+    private fun setRandomPerson() {
+        val friends = userSharedPreferences.getFriends()
+        val minRandomNumber = 0
+        if (friends != null) {
+            when ((minRandomNumber..friends.size).random()) {
+                0 -> setFirstPerson()
+                1 -> setSecondPerson()
+                2 -> setThirdPerson()
+            }
         }
     }
 
-    private fun changePersonNameAndImage(drawableImage: Int, personName: Int) {
+    private fun setFirstPerson() {
+        setPersonNameAndImage(R.drawable.first_person_img, R.string.first_person_name)
+    }
+
+    private fun setSecondPerson() {
+        setPersonNameAndImage(R.drawable.second_person_img, R.string.second_person_name)
+    }
+
+    private fun setThirdPerson() {
+        setPersonNameAndImage(R.drawable.third_person_img, R.string.third_person_name)
+    }
+
+    private fun changePersonImageOnClick() {
+
+        binding.personHotButton.setOnClickListener {
+            setThirdPerson()
+        }
+        binding.personNotButton.setOnClickListener {
+            setSecondPerson()
+        }
+    }
+
+    private fun setPersonNameAndImage(drawableImage: Int, personName: Int) {
         val personImage = binding.personImage
         personImage.setImageResource(drawableImage)
         binding.personName.text = getString(personName)
@@ -61,10 +82,10 @@ class MainScreenFragment : Fragment() {
 
     private fun checkPersonName() {
         val personNameText = binding.personName.text
-        if (personNameText == R.string.name_georgi.toString()) {
+        if (personNameText == R.string.second_person_name.toString()) {
             binding.personNotButton.visibility = View.GONE
             binding.personHotButton.visibility = View.VISIBLE
-        } else if (personNameText == R.string.name_stan.toString()) {
+        } else if (personNameText == R.string.third_person_name.toString()) {
             binding.personHotButton.visibility = View.GONE
             binding.personNotButton.visibility = View.VISIBLE
         }
@@ -76,13 +97,19 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun sendEmail() {
-        val sendEmailText = "${user.firstName} ${user.lastName} ${resources.getString(R.string.email_say_hello)}"
+        val sendEmailText =
+            "${user.firstName} ${user.lastName} ${resources.getString(R.string.email_say_hello)}"
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = resources.getString(R.string.email_type)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(user.email))
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.email_subject))
         emailIntent.putExtra(Intent.EXTRA_TEXT, sendEmailText)
-        startActivity(Intent.createChooser(emailIntent, resources.getString(R.string.email_chooser_text)))
+        startActivity(
+            Intent.createChooser(
+                emailIntent,
+                resources.getString(R.string.email_chooser_text)
+            )
+        )
     }
 
     private fun onEmailClicked() {
@@ -99,22 +126,5 @@ class MainScreenFragment : Fragment() {
 
     private fun navigateToProfileScreen() {
         findNavController().navigate(R.id.actionMainScreenToProfileScreen)
-    }
-
-    private fun generateListOfFriends() {
-        val minChipsCount = 1
-        val listOfFiends = resources.getStringArray(R.array.characteristics).toList()
-        shuffle(listOfFiends)
-        val randomCharacteristics = (minChipsCount..listOfFiends.size).random()
-        createChips(randomCharacteristics, listOfFiends)
-    }
-
-    private fun createChips(chips: Int, friendsCharacteristics: List<String>) {
-        val minLoopNumber = 0
-        for (i in minLoopNumber..chips) {
-            val chip = Chip(activity)
-            chip.text = (friendsCharacteristics[i])
-            binding.chipGroup.addView(chip)
-        }
     }
 }

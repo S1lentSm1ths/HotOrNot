@@ -7,7 +7,7 @@ data class Friend(
     var firstName: String,
     val lastName: String,
     val email: String,
-    val gender: String,
+    val gender: Gender,
     val interests: String,
     val rating: String,
     val characteristics: List<String>

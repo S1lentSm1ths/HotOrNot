@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_image4"
+    tools:context=".MotivationScreenFragment">
+
+    <TextView
+        android:id="@+id/whoIsHotTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asdadasdasd"
+        android:textSize="@dimen/xmedium_text"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/whoIsHotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="@string/i_am_button"
+        android:textColor="@color/sassy_text_color"
+        style="?attr/materialButtonOutlinedStyle"
+        app:layout_constraintTop_toBottomOf="@id/whoIsHotTextView"
+        app:layout_constraintStart_toStartOf="@id/whoIsHotTextView"
+        app:layout_constraintEnd_toEndOf="@id/whoIsHotTextView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

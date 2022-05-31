@@ -1,12 +1,24 @@
 <resources>
 
-<!--    STRINGS-->
+    <!--    STRINGS-->
     <string name="app_name">HotOrNot</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="first_person_name">Ivan</string>
+    <string name="first_person_last_name">Ivanov</string>
+    <string name="first_person_email">ivan_ivanov@gmail.com</string>
+    <string name="first_person_interests">Drag Queens</string>
+    <string name="first_person_rating">Hot</string>
+    <string name="second_person_name">Georgi</string>
+    <string name="second_person_last_name">Kolarov</string>
+    <string name="second_person_email">goshkoshuta@gmail.com</string>
+    <string name="second_person_interests">Males</string>
+    <string name="second_person_rating">Hot</string>
+    <string name="third_person_name">Stan</string>
+    <string name="third_person_last_name">Nikolov</string>
+    <string name="third_person_email">stan4o10@gmail.com</string>
+    <string name="third_person_interests">Apache helicopters</string>
+    <string name="third_person_rating">Not</string>
     <string name="main_screen_buttons_text">Not</string>
-    <string name="name_georgi">Georgi</string>
-    <string name="name_stan">Stan</string>
     <string name="hot">Hot</string>
     <string name="not">Not</string>
     <string name="app_text">ヾ(´∀｀○)ﾉ</string>
@@ -29,18 +41,21 @@
     <string name="email_type">text/plain</string>
     <string name="gallery_select_image_text">Select Picture</string>
     <string name="gallery_type">image/*</string>
-<!--    STRINGS-->
+    <string name="who_is_hot">Who is \n HOT ?</string>
+    <string name="i_am_button">I AM: (￣ω￣)</string>
+    <!--    STRINGS-->
 
-<!--    INTEGERS-->
+    <!--    INTEGERS-->
     <integer name="name_max_chars">100</integer>
     <item name="thirty_three_percents" format="float" type="dimen">0.33</item>
     <item name="guidelineStart" format="float" type="integer">0.33</item>
     <item name="guidelineEnd" format="float" type="integer">0.66</item>
     <item name="guidelineBottom" format="float" type="integer">0.9</item>
+    <item name="whoIsHotTextSize" format="float" type="integer">1.5</item>
     "@integer/guidelineStart"
     <!--    INTEGERS-->
 
-<!--    ARRAYS-->
+    <!--    ARRAYS-->
     <string-array name="interests_array">
         <item>Apache Helicopters</item>
         <item>Males</item>
@@ -51,6 +66,9 @@
 
     <string-array name="characteristics">
         <item>Traveling</item>
+        <item>Techno lover</item>
+        <item>Animal lover</item>
+        <item>Model</item>
         <item>Running</item>
         <item>Training</item>
         <item>Football</item>
@@ -65,5 +83,5 @@
         <item>Coding</item>
         <item>Gaming</item>
     </string-array>
-<!--    ARRAYS-->
+    <!--    ARRAYS-->
 </resources>

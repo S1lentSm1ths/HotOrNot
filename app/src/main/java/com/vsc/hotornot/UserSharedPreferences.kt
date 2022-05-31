@@ -38,7 +38,7 @@ class UserSharedPreferences(context: Context?) {
         userSharedPreferences?.edit()?.putString(FRIENDS_SHARED_PREFERENCES_KEY, friendsData)?.apply()
     }
 
-    fun getFriends(): Friend? {
+    fun getFriends(): List<Friend>? {
         val friendsData = userSharedPreferences?.getString(FRIENDS_SHARED_PREFERENCES_KEY, null) ?: return null
         return Json.decodeFromString(friendsData)
     }
