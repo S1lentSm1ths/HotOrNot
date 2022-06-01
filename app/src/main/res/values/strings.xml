@@ -41,8 +41,9 @@
     <string name="email_type">text/plain</string>
     <string name="gallery_select_image_text">Select Picture</string>
     <string name="gallery_type">image/*</string>
-    <string name="who_is_hot">Who is \n HOT ?</string>
-    <string name="i_am_button">I AM: (￣ω￣)</string>
+    <string name="who_is_hot">Who Is \n HOT ?</string>
+    <string name="i_am_button">I AM</string>
+    <string name="cant_run">Can\'t run from yourself!!</string>
     <!--    STRINGS-->
 
     <!--    INTEGERS-->
@@ -51,7 +52,6 @@
     <item name="guidelineStart" format="float" type="integer">0.33</item>
     <item name="guidelineEnd" format="float" type="integer">0.66</item>
     <item name="guidelineBottom" format="float" type="integer">0.9</item>
-    <item name="whoIsHotTextSize" format="float" type="integer">1.5</item>
     "@integer/guidelineStart"
     <!--    INTEGERS-->
 

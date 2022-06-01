@@ -112,13 +112,4 @@ class SplashScreenFragment : Fragment() {
         }
         return listOfCharacteristics
     }
-
-//    private fun createChips(chips: Int, friendsCharacteristics: List<String>) {
-//        val minLoopNumber = 0
-//        for (i in minLoopNumber..chips) {
-//            val chip = Chip(activity)
-//            chip.text = (friendsCharacteristics[i])
-//            binding.chipGroup.addView(chip)
-//        }
-//    }
 }

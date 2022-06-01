@@ -54,7 +54,7 @@
                     android:gravity="center"
                     android:text="@string/first_person_name"
                     android:textColor="@color/card_view_name_text_color"
-                    android:textSize="@dimen/xmedium_text"
+                    android:textSize="@dimen/xxmedium_text"
                     app:drawableStartCompat="@drawable/ic_login_person"
                     app:layout_constraintEnd_toEndOf="@id/person_image"
                     app:layout_constraintStart_toStartOf="@id/person_image"

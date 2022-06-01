@@ -10,10 +10,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.core.text.toSpannable
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.databinding.FragmentMotivationScreenBinding
+import kotlin.math.max
 
 class MotivationScreenFragment : Fragment() {
 
@@ -24,18 +29,23 @@ class MotivationScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMotivationScreenBinding.inflate(inflater, container, false)
+        onBackPressed()
         setQuestionWhoIsHot()
+        onWhoIsHotButtonClicked()
         return binding.root
     }
 
     private fun setQuestionWhoIsHot() {
         val whoIsHotText = SpannableString(resources.getString(R.string.who_is_hot))
         val startOfTextColoring = 7
-        val endOfTextColoring = 11
+        val endOfTextColoring = 12
+        val endOfTextSize = 14
+        val hotTextSize = 1.2f
+        val questionMarkSize = 1.0f
         whoIsHotText.setSpan(
             RelativeSizeSpan(
-                resources.getInteger(R.integer.whoIsHotTextSize).toFloat()
-            ), startOfTextColoring, endOfTextColoring, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                hotTextSize
+            ), startOfTextColoring, endOfTextSize, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         whoIsHotText.setSpan(
             ForegroundColorSpan(
@@ -45,5 +55,22 @@ class MotivationScreenFragment : Fragment() {
                 )
             ), startOfTextColoring, endOfTextColoring, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
+        binding.whoIsHotTextView.text = whoIsHotText
+    }
+
+    private fun onWhoIsHotButtonClicked() {
+        binding.whoIsHotButton.setOnClickListener {
+            backToPreviousScreen()
+        }
+    }
+
+    private fun backToPreviousScreen() {
+        activity?.supportFragmentManager?.popBackStack()
+    }
+
+    private fun onBackPressed() {
+        activity?.onBackPressedDispatcher?.addCallback(this) {
+            Toast.makeText(context, resources.getString(R.string.cant_run), Toast.LENGTH_SHORT).show()
+        }
     }
 }
