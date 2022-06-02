@@ -12,15 +12,16 @@ import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.Friend
 import com.vsc.hotornot.model.User
-import kotlin.math.min
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
     private lateinit var user: User
-    private var friends: List<Friend>? = null
-    private var randomNumberToSetFriend = 0
+    private var listOfSavedFriends: List<Friend>? = null
+    private val zero = 0
+    private val one = 1
+    private val two = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,51 +43,32 @@ class MainScreenFragment : Fragment() {
 
     private fun getUserSharedPreferencesInstance() {
         userSharedPreferences = UserSharedPreferences.getInstance(this.context)
-        friends = userSharedPreferences.getFriends()
+        listOfSavedFriends = userSharedPreferences.getFriends()
     }
 
     private fun setRandomPerson() {
-        val minRandomNumber = 0
-        val secondPersonNumber = 1
-        val thirdPersonNumber = 2
-        randomNumberToSetFriend = (minRandomNumber until friends!!.size).random()
-        if (friends != null) {
-            when (randomNumberToSetFriend) {
-                0 -> setFirstPerson()
-                1 -> setSecondPerson()
-                2 -> setThirdPerson()
+        val randomFriendNumber = (zero until listOfSavedFriends!!.size).random()
+        if (listOfSavedFriends != null) {
+            when (randomFriendNumber) {
+                zero -> displayFriend(R.drawable.first_person_img, R.string.first_person_name, zero)
+                one -> displayFriend(R.drawable.second_person_img, R.string.second_person_name, one)
+                two -> displayFriend(R.drawable.third_person_img, R.string.third_person_name, two)
             }
         }
     }
 
-    private fun setFirstPerson() {
-        val firstPersonNumber = 0
-        setPersonNameAndImage(R.drawable.first_person_img, R.string.first_person_name)
+    private fun displayFriend(friendImage: Int, friendName: Int, friendPosition: Int) {
+        setPersonNameAndImage(friendImage, friendName)
         removeChips()
-        createChips(friends?.get(firstPersonNumber)?.characteristics)
-    }
-
-    private fun setSecondPerson() {
-        val secondPersonNumber = 1
-        setPersonNameAndImage(R.drawable.second_person_img, R.string.second_person_name)
-        removeChips()
-        createChips(friends?.get(secondPersonNumber)?.characteristics)
-    }
-
-    private fun setThirdPerson() {
-        val thirdPersonNumber = 2
-        setPersonNameAndImage(R.drawable.third_person_img, R.string.third_person_name)
-        removeChips()
-        createChips(friends?.get(thirdPersonNumber)?.characteristics)
+        displayFriendCharacteristics(listOfSavedFriends?.get(friendPosition)?.characteristics)
     }
 
     private fun changePersonOnClick() {
-
         binding.personHotButton.setOnClickListener {
-            setThirdPerson()
+            setRandomPerson()
         }
         binding.personNotButton.setOnClickListener {
-            setSecondPerson()
+            setRandomPerson()
         }
     }
 
@@ -94,10 +76,10 @@ class MainScreenFragment : Fragment() {
         val personImage = binding.personImage
         personImage.setImageResource(drawableImage)
         binding.personName.text = getString(personName)
-        checkPersonName()
+        hideButtonOnNameChanged()
     }
 
-    private fun checkPersonName() {
+    private fun hideButtonOnNameChanged() {
         val personNameText = binding.personName.text
         if (personNameText == resources.getString(R.string.second_person_name)) {
             binding.personNotButton.visibility = View.GONE
@@ -135,10 +117,9 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun createChips(friendCharacteristics: List<String>?) {
-        val minChips = 1
+    private fun displayFriendCharacteristics(friendCharacteristics: List<String>?) {
         if (friendCharacteristics != null) {
-            for (i in minChips until friendCharacteristics.size) {
+            for (i in one until friendCharacteristics.size) {
                 val chip = Chip(activity)
                 chip.text = (friendCharacteristics[i])
                 binding.chipGroup.addView(chip)
