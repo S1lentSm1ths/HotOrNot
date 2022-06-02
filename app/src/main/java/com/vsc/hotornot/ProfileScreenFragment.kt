@@ -75,7 +75,7 @@ class ProfileScreen : Fragment() {
         // create an instance of the
         // intent of the type image
         val galleryIntent = Intent()
-        galleryIntent.type = R.string.gallery_type.toString()
+        galleryIntent.type = resources.getString(R.string.gallery_type)
         galleryIntent.action = Intent.ACTION_GET_CONTENT
 
         // pass the constant to compare it
@@ -83,7 +83,7 @@ class ProfileScreen : Fragment() {
         startActivityForResult(
             Intent.createChooser(
                 galleryIntent,
-                R.string.gallery_select_image_text.toString()
+                resources.getString(R.string.gallery_select_image_text)
             ), RESULT_CODE
         )
     }

@@ -2,6 +2,7 @@ package com.vsc.hotornot
 
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +20,10 @@ class MainScreenFragment : Fragment() {
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
     private lateinit var user: User
-    private var friends: List<Friend>? = null
-    private var randomNumberToSetFriend = 0
+    private var listOfSavedFriends: List<Friend>? = null
+    private val zero = 0
+    private val one = 1
+    private val two = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,69 +45,56 @@ class MainScreenFragment : Fragment() {
 
     private fun getUserSharedPreferencesInstance() {
         userSharedPreferences = UserSharedPreferences.getInstance(this.context)
-        friends = userSharedPreferences.getFriends()
+        listOfSavedFriends = userSharedPreferences.getFriends()
     }
 
     private fun setRandomPerson() {
-        val minRandomNumber = 0
-        val secondPersonNumber = 1
-        val thirdPersonNumber = 2
-        randomNumberToSetFriend = (minRandomNumber until friends!!.size).random()
-        if (friends != null) {
-            when (randomNumberToSetFriend) {
-                0 -> setFirstPerson()
-                1 -> setSecondPerson()
-                2 -> setThirdPerson()
+        val randomFriendNumber = (zero until listOfSavedFriends!!.size).random()
+        if (listOfSavedFriends != null) {
+            when (randomFriendNumber) {
+                zero -> displayFriend(zero)
+                one -> displayFriend(one)
+                two -> displayFriend(two)
             }
         }
     }
 
-    private fun setFirstPerson() {
-        val firstPersonNumber = 0
-        setPersonNameAndImage(R.drawable.first_person_img, R.string.first_person_name)
-        removeChips()
-        createChips(friends?.get(firstPersonNumber)?.characteristics)
-    }
-
-    private fun setSecondPerson() {
-        val secondPersonNumber = 1
-        setPersonNameAndImage(R.drawable.second_person_img, R.string.second_person_name)
-        removeChips()
-        createChips(friends?.get(secondPersonNumber)?.characteristics)
-    }
-
-    private fun setThirdPerson() {
-        val thirdPersonNumber = 2
-        setPersonNameAndImage(R.drawable.third_person_img, R.string.third_person_name)
-        removeChips()
-        createChips(friends?.get(thirdPersonNumber)?.characteristics)
+    private fun displayFriend(friendPosition: Int) {
+        val currentFriend = listOfSavedFriends?.get(friendPosition)
+        if (currentFriend != null) {
+            setPersonNameAndImage(currentFriend.image, currentFriend.firstName)
+            removeChips()
+            displayFriendCharacteristics(currentFriend.characteristics)
+        }
     }
 
     private fun changePersonOnClick() {
 
         binding.personHotButton.setOnClickListener {
-            setThirdPerson()
+            setRandomPerson()
         }
         binding.personNotButton.setOnClickListener {
-            setSecondPerson()
+            setRandomPerson()
         }
     }
 
-    private fun setPersonNameAndImage(drawableImage: Int, personName: Int) {
-        val personImage = binding.personImage
-        personImage.setImageResource(drawableImage)
-        binding.personName.text = getString(personName)
-        checkPersonName()
+    private fun setPersonNameAndImage(drawableImage: Int, friendName: String) {
+        binding.personImage.setImageResource(drawableImage)
+        binding.personName.text = friendName
+        hideButtonOnNameChanged(friendName)
     }
 
-    private fun checkPersonName() {
-        val personNameText = binding.personName.text
-        if (personNameText == resources.getString(R.string.second_person_name)) {
+    private fun hideButtonOnNameChanged(friendName: String) {
+        if (friendName == resources.getString(R.string.second_person_name)) {
             binding.personNotButton.visibility = View.GONE
             binding.personHotButton.visibility = View.VISIBLE
-        } else if (personNameText == resources.getString(R.string.third_person_name)) {
+        } else if (friendName == resources.getString(R.string.third_person_name)) {
             binding.personHotButton.visibility = View.GONE
             binding.personNotButton.visibility = View.VISIBLE
+        }
+        else if (friendName == resources.getString(R.string.first_person_name)) {
+            binding.personNotButton.visibility = View.VISIBLE
+            binding.personHotButton.visibility = View.VISIBLE
         }
     }
 
@@ -135,7 +125,7 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun createChips(friendCharacteristics: List<String>?) {
+    private fun displayFriendCharacteristics(friendCharacteristics: List<String>?) {
         val minChips = 1
         if (friendCharacteristics != null) {
             for (i in minChips until friendCharacteristics.size) {
