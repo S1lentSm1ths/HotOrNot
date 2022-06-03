@@ -44,4 +44,9 @@
             android:id="@+id/actionProfileScreenToMainScreen"
             app:destination="@id/mainScreen" />
     </fragment>
+    <fragment
+        android:id="@+id/motivationScreenFragment"
+        android:name="com.vsc.hotornot.MotivationScreenFragment"
+        android:label="fragment_motivation_screen"
+        tools:layout="@layout/fragment_motivation_screen" />
 </navigation>

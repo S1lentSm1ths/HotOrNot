@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,146 +7,153 @@
     android:background="@drawable/background_image4"
     tools:context=".MainScreenFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_menu"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/main_screen_button_not_background"
-        android:popupTheme="@style/mainScreenOptionsMenu"
-        android:theme="@style/mainScreenOptionsMenu"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <ImageButton
-        android:id="@+id/profileScreenMenu"
-        android:layout_width="@dimen/big_margin"
-        android:layout_height="@dimen/xxxmedium_margin"
-        android:background="@color/main_screen_button_not_background"
-        android:contentDescription="@string/navigation"
-        android:src="@drawable/ic_login_person"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/personCardView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/zero_margin"
-        android:layout_margin="@dimen/xmedium_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_menu">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_menu"
             android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/main_screen_button_not_background"
+            android:popupTheme="@style/mainScreenOptionsMenu"
+            android:theme="@style/mainScreenOptionsMenu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/profileScreenMenu"
+            android:layout_width="@dimen/big_margin"
+            android:layout_height="@dimen/xxxmedium_margin"
+            android:background="@color/main_screen_button_not_background"
+            android:contentDescription="@string/navigation"
+            android:src="@drawable/ic_login_person"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/personCardView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero_margin"
+            android:layout_margin="@dimen/xmedium_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_menu">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_view_background"
+                android:padding="@dimen/medium_margin">
+
+                <TextView
+                    android:id="@+id/person_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/xsmall_margin"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:gravity="center"
+                    android:text="@string/first_person_name"
+                    android:textColor="@color/card_view_name_text_color"
+                    android:textSize="@dimen/xxmedium_text"
+                    app:drawableStartCompat="@drawable/ic_login_person"
+                    app:layout_constraintEnd_toEndOf="@id/person_image"
+                    app:layout_constraintStart_toStartOf="@id/person_image"
+                    app:layout_constraintTop_toBottomOf="@id/person_image" />
+
+                <ImageView
+                    android:id="@+id/person_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/xxxlarge_margin"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/first_person_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/userEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_margin"
+                    android:backgroundTint="@color/card_view_background"
+                    android:gravity="center"
+                    android:hint="@string/email"
+                    android:onClick="sendEmail"
+                    android:textColorHint="@color/clickable_text_color"
+                    android:textSize="@dimen/medium_text"
+                    app:cornerRadius="@dimen/xmedium_margin"
+                    app:drawableStartCompat="@drawable/ic_email"
+                    app:layout_constraintEnd_toEndOf="@id/person_name"
+                    app:layout_constraintStart_toStartOf="@id/person_name"
+                    app:layout_constraintTop_toBottomOf="@id/person_name"
+                    app:strokeColor="@color/first_background_end_color"
+                    app:strokeWidth="@dimen/xsmall_margin" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/userEmail">
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineStart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/card_view_background"
-            android:padding="@dimen/medium_margin">
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="@integer/guidelineStart" />
 
-            <TextView
-                android:id="@+id/person_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/xsmall_margin"
-                android:layout_marginTop="@dimen/medium_margin"
-                android:gravity="center"
-                android:text="@string/first_person_name"
-                android:textColor="@color/card_view_name_text_color"
-                android:textSize="@dimen/xmedium_text"
-                app:drawableStartCompat="@drawable/ic_login_person"
-                app:layout_constraintEnd_toEndOf="@id/person_image"
-                app:layout_constraintStart_toStartOf="@id/person_image"
-                app:layout_constraintTop_toBottomOf="@id/person_image" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="@integer/guidelineEnd" />
 
-            <ImageView
-                android:id="@+id/person_image"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/xxxlarge_margin"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/first_person_img"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="@integer/guidelineBottom" />
 
-            <TextView
-                android:id="@+id/userEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/big_margin"
-                android:backgroundTint="@color/card_view_background"
-                android:gravity="center"
-                android:hint="@string/email"
-                android:onClick="sendEmail"
-                android:textColorHint="@color/clickable_text_color"
-                android:textSize="@dimen/medium_text"
-                app:cornerRadius="@dimen/xmedium_margin"
-                app:drawableStartCompat="@drawable/ic_email"
-                app:layout_constraintEnd_toEndOf="@id/person_name"
-                app:layout_constraintStart_toStartOf="@id/person_name"
-                app:layout_constraintTop_toBottomOf="@id/person_name"
-                app:strokeColor="@color/first_background_end_color"
-                app:strokeWidth="@dimen/xsmall_margin" />
+        <Button
+            android:id="@+id/personNotButton"
+            android:layout_width="@dimen/zero_margin"
+            android:layout_height="@dimen/big_margin"
+            android:layout_marginTop="@dimen/xxmedium_margin"
+            android:backgroundTint="@color/main_screen_button_not_background"
+            android:hint="@string/not"
+            android:textColorHint="@color/white"
+            app:cornerRadius="@dimen/xmedium_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personCardView"
+            app:strokeColor="@color/card_view_background"
+            app:strokeWidth="@dimen/small_margin" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/userEmail">
+        <Button
+            android:id="@+id/personHotButton"
+            android:layout_width="@dimen/zero_margin"
+            android:layout_height="@dimen/big_margin"
+            android:layout_marginTop="@dimen/xxmedium_margin"
+            android:backgroundTint="@color/main_screen_button_hot_background"
+            android:hint="@string/hot"
+            android:textColorHint="@color/white"
+            app:cornerRadius="@dimen/xmedium_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLineEnd"
+            app:layout_constraintTop_toBottomOf="@id/personCardView"
+            app:strokeColor="@color/card_view_background"
+            app:strokeWidth="@dimen/small_margin" />
 
-            </com.google.android.material.chip.ChipGroup>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLineStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="@integer/guidelineStart" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLineEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="@integer/guidelineEnd" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLineBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="@integer/guidelineBottom" />
-
-    <Button
-        android:id="@+id/personNotButton"
-        android:layout_width="@dimen/zero_margin"
-        android:layout_height="@dimen/big_margin"
-        android:backgroundTint="@color/main_screen_button_not_background"
-        android:hint="@string/not"
-        android:textColorHint="@color/white"
-        app:cornerRadius="@dimen/xmedium_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideLineStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideLineBottom"
-        app:strokeColor="@color/card_view_background"
-        app:strokeWidth="@dimen/small_margin" />
-
-    <Button
-        android:id="@+id/personHotButton"
-        android:layout_width="@dimen/zero_margin"
-        android:layout_height="@dimen/big_margin"
-        android:backgroundTint="@color/main_screen_button_hot_background"
-        android:hint="@string/hot"
-        android:textColorHint="@color/white"
-        app:cornerRadius="@dimen/xmedium_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideLineEnd"
-        app:layout_constraintTop_toBottomOf="@id/guideLineBottom"
-        app:strokeColor="@color/card_view_background"
-        app:strokeWidth="@dimen/small_margin" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

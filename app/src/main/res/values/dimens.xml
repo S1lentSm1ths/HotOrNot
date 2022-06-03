@@ -24,6 +24,7 @@
 <!--    texts-->
     <dimen name="small_text">10sp</dimen>
     <dimen name="medium_text">20sp</dimen>
-    <dimen name="xmedium_text">30sp</dimen>
+    <dimen name="xmedium_text">25sp</dimen>
+    <dimen name="xxmedium_text">30sp</dimen>
     <!--    texts-->
 </resources>

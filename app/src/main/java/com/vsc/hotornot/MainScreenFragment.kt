@@ -10,15 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
+import com.vsc.hotornot.model.Friend
 import com.vsc.hotornot.model.User
-import java.util.Collections.min
-import java.util.Collections.shuffle
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var userSharedPreferences: UserSharedPreferences
     private lateinit var user: User
+    private var listOfSavedFriends: List<Friend>? = null
+    private val zero = 0
+    private val one = 1
+    private val two = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,44 +30,61 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         getUserSharedPreferencesInstance()
         user = userSharedPreferences.getUserData()!!
+        setRandomPerson()
         setEmail()
-        generateListOfFriends()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        changePersonImageOnClick()
+        changePersonOnClick()
         onEmailClicked()
         onButtonProfileScreenClicked()
     }
 
     private fun getUserSharedPreferencesInstance() {
         userSharedPreferences = UserSharedPreferences.getInstance(this.context)
+        listOfSavedFriends = userSharedPreferences.getFriends()
     }
 
-    private fun changePersonImageOnClick() {
+    private fun setRandomPerson() {
+        val randomFriendNumber = (zero until listOfSavedFriends!!.size).random()
+        if (listOfSavedFriends != null) {
+            when (randomFriendNumber) {
+                zero -> displayFriend(R.drawable.first_person_img, R.string.first_person_name, zero)
+                one -> displayFriend(R.drawable.second_person_img, R.string.second_person_name, one)
+                two -> displayFriend(R.drawable.third_person_img, R.string.third_person_name, two)
+            }
+        }
+    }
 
+    private fun displayFriend(friendImage: Int, friendName: Int, friendPosition: Int) {
+        setPersonNameAndImage(friendImage, friendName)
+        removeChips()
+        displayFriendCharacteristics(listOfSavedFriends?.get(friendPosition)?.characteristics)
+    }
+
+    private fun changePersonOnClick() {
         binding.personHotButton.setOnClickListener {
-            changePersonNameAndImage(R.drawable.second_person_img, R.string.name_stan)
+            setRandomPerson()
         }
         binding.personNotButton.setOnClickListener {
-            changePersonNameAndImage(R.drawable.third_person_img, R.string.name_georgi)
+            setRandomPerson()
         }
     }
 
-    private fun changePersonNameAndImage(drawableImage: Int, personName: Int) {
+    private fun setPersonNameAndImage(drawableImage: Int, personName: Int) {
         val personImage = binding.personImage
         personImage.setImageResource(drawableImage)
         binding.personName.text = getString(personName)
-        checkPersonName()
+        hideButtonOnNameChanged()
     }
 
-    private fun checkPersonName() {
+    private fun hideButtonOnNameChanged() {
         val personNameText = binding.personName.text
-        if (personNameText == R.string.name_georgi.toString()) {
+        if (personNameText == resources.getString(R.string.second_person_name)) {
             binding.personNotButton.visibility = View.GONE
             binding.personHotButton.visibility = View.VISIBLE
-        } else if (personNameText == R.string.name_stan.toString()) {
+        } else if (personNameText == resources.getString(R.string.third_person_name)) {
             binding.personHotButton.visibility = View.GONE
             binding.personNotButton.visibility = View.VISIBLE
         }
@@ -76,19 +96,39 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun sendEmail() {
-        val sendEmailText = "${user.firstName} ${user.lastName} ${resources.getString(R.string.email_say_hello)}"
+        val sendEmailText =
+            "${user.firstName} ${user.lastName} ${resources.getString(R.string.email_say_hello)}"
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = resources.getString(R.string.email_type)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(user.email))
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.email_subject))
         emailIntent.putExtra(Intent.EXTRA_TEXT, sendEmailText)
-        startActivity(Intent.createChooser(emailIntent, resources.getString(R.string.email_chooser_text)))
+        startActivity(
+            Intent.createChooser(
+                emailIntent,
+                resources.getString(R.string.email_chooser_text)
+            )
+        )
     }
 
     private fun onEmailClicked() {
         binding.userEmail.setOnClickListener {
             sendEmail()
         }
+    }
+
+    private fun displayFriendCharacteristics(friendCharacteristics: List<String>?) {
+        if (friendCharacteristics != null) {
+            for (i in one until friendCharacteristics.size) {
+                val chip = Chip(activity)
+                chip.text = (friendCharacteristics[i])
+                binding.chipGroup.addView(chip)
+            }
+        }
+    }
+
+    private fun removeChips() {
+        binding.chipGroup.removeAllViews()
     }
 
     private fun onButtonProfileScreenClicked() {
@@ -99,22 +139,5 @@ class MainScreenFragment : Fragment() {
 
     private fun navigateToProfileScreen() {
         findNavController().navigate(R.id.actionMainScreenToProfileScreen)
-    }
-
-    private fun generateListOfFriends() {
-        val minChipsCount = 1
-        val listOfFiends = resources.getStringArray(R.array.characteristics).toList()
-        shuffle(listOfFiends)
-        val randomCharacteristics = (minChipsCount..listOfFiends.size).random()
-        createChips(randomCharacteristics, listOfFiends)
-    }
-
-    private fun createChips(chips: Int, friendsCharacteristics: List<String>) {
-        val minLoopNumber = 0
-        for (i in minLoopNumber..chips) {
-            val chip = Chip(activity)
-            chip.text = (friendsCharacteristics[i])
-            binding.chipGroup.addView(chip)
-        }
     }
 }
