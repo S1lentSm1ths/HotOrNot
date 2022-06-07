@@ -13,25 +13,29 @@ import com.google.android.material.chip.Chip
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.Friend
 import com.vsc.hotornot.model.User
+import com.vsc.hotornot.repository.FriendRepository
+import com.vsc.hotornot.repository.UserRepository
 import kotlin.math.min
+
+private const val START_OF_FOR_LOOP = 0
+private const val MIN_CHIPS_COUNT = 1
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private lateinit var userSharedPreferences: UserSharedPreferences
+    private lateinit var userRepository: UserRepository
+    private lateinit var friendRepository: FriendRepository
     private lateinit var user: User
     private var listOfSavedFriends: List<Friend>? = null
-    private val zero = 0
-    private val one = 1
-    private val two = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
-        getUserSharedPreferencesInstance()
-        user = userSharedPreferences.getUserData()!!
+        getRepositoriesInstance()
+        user = userRepository.getUser()!!
+        listOfSavedFriends = friendRepository.listOfSavedFriends
         setRandomPerson()
         setEmail()
         return binding.root
@@ -40,22 +44,17 @@ class MainScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         changePersonOnClick()
         onEmailClicked()
-        onButtonProfileScreenClicked()
     }
 
-    private fun getUserSharedPreferencesInstance() {
-        userSharedPreferences = UserSharedPreferences.getInstance(this.context)
-        listOfSavedFriends = userSharedPreferences.getFriends()
+    private fun getRepositoriesInstance() {
+        userRepository = UserRepository.getInstance(this.context)
+        friendRepository = FriendRepository.getInstance(this.context, resources)
     }
 
     private fun setRandomPerson() {
-        val randomFriendNumber = (zero until listOfSavedFriends!!.size).random()
+        val randomFriendNumber = (START_OF_FOR_LOOP until listOfSavedFriends!!.size).random()
         if (listOfSavedFriends != null) {
-            when (randomFriendNumber) {
-                zero -> displayFriend(zero)
-                one -> displayFriend(one)
-                two -> displayFriend(two)
-            }
+            displayFriend(randomFriendNumber)
         }
     }
 
@@ -91,8 +90,7 @@ class MainScreenFragment : Fragment() {
         } else if (friendName == resources.getString(R.string.third_person_name)) {
             binding.personHotButton.visibility = View.GONE
             binding.personNotButton.visibility = View.VISIBLE
-        }
-        else if (friendName == resources.getString(R.string.first_person_name)) {
+        } else if (friendName == resources.getString(R.string.first_person_name)) {
             binding.personNotButton.visibility = View.VISIBLE
             binding.personHotButton.visibility = View.VISIBLE
         }
@@ -126,9 +124,8 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun displayFriendCharacteristics(friendCharacteristics: List<String>?) {
-        val minChips = 1
         if (friendCharacteristics != null) {
-            for (i in minChips until friendCharacteristics.size) {
+            for (i in MIN_CHIPS_COUNT until friendCharacteristics.size) {
                 val chip = Chip(activity)
                 chip.text = (friendCharacteristics[i])
                 binding.chipGroup.addView(chip)
@@ -136,17 +133,6 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun removeChips() {
+    private fun removeChips() =
         binding.chipGroup.removeAllViews()
-    }
-
-    private fun onButtonProfileScreenClicked() {
-        binding.profileScreenMenu.setOnClickListener {
-            navigateToProfileScreen()
-        }
-    }
-
-    private fun navigateToProfileScreen() {
-        findNavController().navigate(R.id.actionMainScreenToProfileScreen)
-    }
 }

@@ -8,10 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
@@ -20,15 +17,20 @@ import com.vsc.hotornot.R.id.actionRegistrationScreenFragmentToMainScreen
 import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
 import com.vsc.hotornot.model.Gender
 import com.vsc.hotornot.model.User
+import com.vsc.hotornot.repository.UserRepository
+import java.util.*
 
+private const val EMAIL_REQUIRED_SIGN = "@"
+private const val THIRD_PROGRESS = 33
 
 class RegistrationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
-    private lateinit var userSharedPreferences: UserSharedPreferences
+    private lateinit var userRepository: UserRepository
     private lateinit var buttonRegister: Button
+    private lateinit var progressBar: ProgressBar
     private var gender = Gender.OTHER
-    private var selectedInterest: String = ""
+    private var selectedInterest: String = resources.getString(R.string.white_space)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,11 +38,13 @@ class RegistrationScreenFragment : Fragment() {
     ): View {
         binding = FragmentRegistrationScreenBinding.inflate(inflater, container, false)
         initViews()
-        initSpinner()
-        onFieldsFill()
+        createSpinner()
+        fillProgressOnFirstNameChanged()
+        fillProgressOnLastNameChanged()
+        fillProgressOnEmailChanged()
         emailValidation()
         onGenderButtonSelect()
-        getUserSharedPreferencesInstance()
+        getUserRepositoryInstance()
         onButtonRegisterClicked()
         return binding.root
     }
@@ -51,16 +55,17 @@ class RegistrationScreenFragment : Fragment() {
 
     private fun initViews() {
         buttonRegister = binding.buttonRegister
+        progressBar = binding.createAccountProgressBar
     }
 
-    private fun getUserSharedPreferencesInstance() {
-        userSharedPreferences = UserSharedPreferences.getInstance(this.context)
+    private fun getUserRepositoryInstance() {
+        userRepository = UserRepository.getInstance(this.context)
     }
 
     private fun onButtonRegisterClicked() {
         buttonRegister.setOnClickListener {
             binding.createAccountProgressBar.isIndeterminate = true
-            when (firstAndLastNameValidation(binding.firstNameEditText, binding.lastNameEditText)) {
+            when (nameValidation(binding.firstNameEditText, binding.lastNameEditText)) {
                 true -> {
                     val user = User(
                         binding.firstNameEditText.text.toString(),
@@ -69,8 +74,8 @@ class RegistrationScreenFragment : Fragment() {
                         gender,
                         selectedInterest
                     )
-                    userSharedPreferences.saveUserData(user)
-                    postTransactionDelayToMainScreen()
+                    userRepository.saveUserData(user)
+                    navigateToMainScreen()
                 }
                 else ->
                     binding.createAccountProgressBar.isIndeterminate = false
@@ -78,18 +83,10 @@ class RegistrationScreenFragment : Fragment() {
         }
     }
 
-    private fun postTransactionDelayToMainScreen() {
-        Handler(Looper.getMainLooper())
-            .postDelayed({
-                navigateToMainScreen()
-            }, TRANSACTION_DURATION_TIME)
-    }
-
-    private fun navigateToMainScreen() {
+    private fun navigateToMainScreen() =
         findNavController().navigate(actionRegistrationScreenFragmentToMainScreen)
-    }
 
-    private fun firstAndLastNameValidation(
+    private fun nameValidation(
         firstNameEditText: TextInputEditText,
         lastNameEditText: TextInputEditText
     ): Boolean {
@@ -97,11 +94,11 @@ class RegistrationScreenFragment : Fragment() {
         val lastNameText = lastNameEditText.text.toString()
         return when {
             firstNameText.isEmpty() -> {
-                firstNameEditText.error = "Field is required"
+                firstNameEditText.error = resources.getString(R.string.field_required)
                 false
             }
             lastNameText.isEmpty() -> {
-                firstNameEditText.error = "Field is required"
+                firstNameEditText.error = resources.getString(R.string.field_required)
                 false
             }
             else -> {
@@ -112,12 +109,13 @@ class RegistrationScreenFragment : Fragment() {
 
     private fun emailValidation() {
         val emailInput = binding.emailEditText
+
         emailInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (!binding.emailEditText.text.toString().contains("@")) {
-                    binding.emailEditText.error = "Please enter a valid email!"
+                if (!binding.emailEditText.text.toString().contains(EMAIL_REQUIRED_SIGN)) {
+                    binding.emailEditText.error = resources.getString(R.string.enter_valid_email)
                     disableRegisterButton()
                 } else {
                     activateRegisterButton()
@@ -138,7 +136,7 @@ class RegistrationScreenFragment : Fragment() {
         buttonRegister.isEnabled = true
     }
 
-    private fun initSpinner() {
+    private fun createSpinner() {
         val interestsArray = resources.getStringArray(R.array.interests_array)
 
         binding.interestsDropDownMenu.adapter =
@@ -149,7 +147,6 @@ class RegistrationScreenFragment : Fragment() {
             )
         binding.interestsDropDownMenu.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
-
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
@@ -157,88 +154,88 @@ class RegistrationScreenFragment : Fragment() {
                     id: Long
                 ) {
                     selectedInterest = interestsArray[position]
-
                 }
 
-
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    Toast.makeText(requireContext(), "Please select option!", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.select_option),
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             }
     }
 
     private fun onGenderButtonSelect() {
-        binding.genderManButton.setOnClickListener() {
+        binding.genderManButton.setOnClickListener {
             gender = Gender.MAN
         }
-        binding.genderWomanButton.setOnClickListener() {
+        binding.genderWomanButton.setOnClickListener {
             gender = Gender.WOMAN
         }
-        binding.genderOtherButton.setOnClickListener() {
+        binding.genderOtherButton.setOnClickListener {
             gender = Gender.OTHER
         }
     }
 
-    private fun onFieldsFill() {
-        val progressBar = binding.createAccountProgressBar
-        val thirdProgress = 33
+    private fun fillProgressOnFirstNameChanged() {
         binding.firstNameEditText.addTextChangedListener(object : TextWatcher {
             var progressChanged = false
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.firstNameEditText.text.toString().isEmpty()) {
-                    progressBar.progress -= thirdProgress
+                    progressBar.progress -= THIRD_PROGRESS
                     progressChanged = false
                 } else if (binding.firstNameEditText.text.toString().isNotEmpty()) {
                     if (!progressChanged) {
-                        progressBar.progress += thirdProgress
+                        progressBar.progress += THIRD_PROGRESS
                         progressChanged = true
                     }
                 }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         })
+    }
+
+    private fun fillProgressOnLastNameChanged() {
         binding.lastNameEditText.addTextChangedListener(object : TextWatcher {
             var progressChanged = false
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.lastNameEditText.text.toString().isEmpty()) {
-                    progressBar.progress -= thirdProgress
+                    progressBar.progress -= THIRD_PROGRESS
                     progressChanged = false
                 } else if (binding.lastNameEditText.text.toString().isNotEmpty()) {
                     if (!progressChanged) {
-                        progressBar.progress += thirdProgress
-                        progressChanged = true
-                    }
-                }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
-
-        binding.emailEditText.addTextChangedListener(object : TextWatcher {
-            var progressChanged = false
-            override fun afterTextChanged(p0: Editable?) {
-                if (binding.emailEditText.text.toString().isEmpty()) {
-                    progressBar.progress -= thirdProgress
-                    progressChanged = false
-                } else if (binding.emailEditText.text.toString().isNotEmpty()) {
-                    if (!progressChanged) {
-                        progressBar.progress += thirdProgress
+                        progressBar.progress += THIRD_PROGRESS
                         progressChanged = true
                     }
                 }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+    }
 
+    private fun fillProgressOnEmailChanged() {
+        binding.emailEditText.addTextChangedListener(object : TextWatcher {
+            var progressChanged = false
+            override fun afterTextChanged(p0: Editable?) {
+                if (binding.emailEditText.text.toString().isEmpty()) {
+                    progressBar.progress -= THIRD_PROGRESS
+                    progressChanged = false
+                } else if (binding.emailEditText.text.toString().isNotEmpty()) {
+                    if (!progressChanged) {
+                        progressBar.progress += THIRD_PROGRESS
+                        progressChanged = true
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         })

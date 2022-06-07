@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.databinding.FragmentProfileScreenBinding
 import com.vsc.hotornot.model.Gender
 import com.vsc.hotornot.model.User
 
-private const val RESULT_CODE = 200
 private const val ICON_POSITION = 0
 
 class ProfileScreen : Fragment() {
@@ -44,9 +44,8 @@ class ProfileScreen : Fragment() {
         }
     }
 
-    private fun goBackToMainScreen() {
+    private fun goBackToMainScreen() =
         findNavController().navigate(R.id.actionProfileScreenToMainScreen)
-    }
 
     private fun onPersonImageClicked() {
         binding.selectImageButton.setOnClickListener {
@@ -55,7 +54,9 @@ class ProfileScreen : Fragment() {
     }
 
     private fun setUserInfo() {
-        binding.firstAndLastName.text = user.firstName + " " + user.lastName
+        (user.firstName + getString(R.string.white_space) + user.lastName).also {
+            binding.firstAndLastName.text = it
+        }
         binding.userEmail.text = user.email
         setGenderUi(user.gender)
     }
@@ -71,31 +72,23 @@ class ProfileScreen : Fragment() {
     }
 
     private fun imageChooser() {
-
-        // create an instance of the
-        // intent of the type image
         val galleryIntent = Intent()
         galleryIntent.type = resources.getString(R.string.gallery_type)
         galleryIntent.action = Intent.ACTION_GET_CONTENT
-
-        // pass the constant to compare it
-        // with the returned requestCode
-        startActivityForResult(
+        resultLauncher.launch(
             Intent.createChooser(
                 galleryIntent,
                 resources.getString(R.string.gallery_select_image_text)
-            ), RESULT_CODE
+            )
         )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RESULT_CODE) {
-            // Get the url of the image from data
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val data: Intent? = result.data
             val selectedImageUri: Uri? = data?.data
             if (null != selectedImageUri) {
-                // update the preview image in the layout
                 binding.personImage.setImageURI(selectedImageUri)
             }
         }
-    }
 }
