@@ -20,6 +20,11 @@ import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.databinding.FragmentMotivationScreenBinding
 import kotlin.math.max
 
+private const val START_OF_TEXT_COLORING = 7
+private const val END_OF_TEXT_COLORING = 12
+private const val END_OF_TEXT_SIZE = 14
+private const val HOT_TEXT_SIZE = 1.2f
+
 class MotivationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMotivationScreenBinding
@@ -37,15 +42,10 @@ class MotivationScreenFragment : Fragment() {
 
     private fun setQuestionWhoIsHot() {
         val whoIsHotText = SpannableString(resources.getString(R.string.who_is_hot))
-        val startOfTextColoring = 7
-        val endOfTextColoring = 12
-        val endOfTextSize = 14
-        val hotTextSize = 1.2f
-        val questionMarkSize = 1.0f
         whoIsHotText.setSpan(
             RelativeSizeSpan(
-                hotTextSize
-            ), startOfTextColoring, endOfTextSize, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                HOT_TEXT_SIZE
+            ), START_OF_TEXT_COLORING, END_OF_TEXT_SIZE, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         whoIsHotText.setSpan(
             ForegroundColorSpan(
@@ -53,7 +53,7 @@ class MotivationScreenFragment : Fragment() {
                     requireContext(),
                     R.color.who_is_hot_text_color
                 )
-            ), startOfTextColoring, endOfTextColoring, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            ), START_OF_TEXT_COLORING, END_OF_TEXT_COLORING, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
         binding.whoIsHotTextView.text = whoIsHotText
     }
@@ -64,9 +64,7 @@ class MotivationScreenFragment : Fragment() {
         }
     }
 
-    private fun backToPreviousScreen() {
-        activity?.supportFragmentManager?.popBackStack()
-    }
+    private fun backToPreviousScreen() = activity?.supportFragmentManager?.popBackStack()
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(this) {

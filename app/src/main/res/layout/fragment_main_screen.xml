@@ -11,25 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_menu"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/main_screen_button_not_background"
-            android:popupTheme="@style/mainScreenOptionsMenu"
-            android:theme="@style/mainScreenOptionsMenu"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/profileScreenMenu"
-            android:layout_width="@dimen/big_margin"
-            android:layout_height="@dimen/xxxmedium_margin"
-            android:background="@color/main_screen_button_not_background"
-            android:contentDescription="@string/navigation"
-            android:src="@drawable/ic_login_person"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/personCardView"
             android:layout_width="match_parent"
@@ -37,7 +18,7 @@
             android:layout_margin="@dimen/xmedium_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_menu">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
