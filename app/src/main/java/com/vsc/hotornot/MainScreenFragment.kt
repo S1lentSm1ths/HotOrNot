@@ -68,7 +68,6 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun changePersonOnClick() {
-
         binding.personHotButton.setOnClickListener {
             setRandomPerson()
         }
