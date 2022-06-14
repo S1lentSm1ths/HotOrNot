@@ -10,16 +10,13 @@ class UserRepository(context: Context?) {
 
     fun saveUserData(user: User) = userSharedPreferences.saveUserData(user)
 
-     fun getUser(): User? {
+    fun getUser(): User? {
         return userSharedPreferences.getUserData()
     }
 
-    fun checkIfUserExist(navigateToMainScreen: Unit, navigateToRegistrationScreen: Unit) =
-        if (getUser() != null) {
-            navigateToMainScreen
-        } else {
-            navigateToRegistrationScreen
-        }
+    fun checkIfUserExist(): Boolean {
+        return getUser() != null
+    }
 
     companion object {
 

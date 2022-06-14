@@ -31,17 +31,17 @@ class SplashScreenFragment : Fragment() {
     }
 
     private fun getRepositoriesInstance() {
-        friendRepository = FriendRepository.getInstance(this.context, resources)
+        friendRepository = FriendRepository.getInstance(requireContext())
         userRepository = UserRepository.getInstance(this.context)
     }
 
     private fun postTransactionDelayToNextScreen() {
         Handler(Looper.getMainLooper())
             .postDelayed({
-                userRepository.checkIfUserExist(
-                    navigateToMainScreen(),
-                    navigateToRegistrationScreen()
-                )
+                when (userRepository.checkIfUserExist()) {
+                    true -> navigateToMainScreen()
+                    false -> navigateToRegistrationScreen()
+                }
             }, TRANSACTION_DURATION_TIME)
     }
 

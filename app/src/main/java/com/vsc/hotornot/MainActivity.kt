@@ -1,22 +1,18 @@
 package com.vsc.hotornot
 
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
+import android.util.AttributeSet
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.vsc.hotornot.databinding.ActivityMainBinding
-import java.util.*
 
 private const val MAX_INACTIVE_SECONDS = 600000L
 
@@ -31,7 +27,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setActionBarColor()
         setContentView(binding.root)
+        showAndHideBackArrowOnDestinationChanged()
     }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+
+        return super.onCreateView(name, context, attrs)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_screen_options_menu, menu)
@@ -39,11 +42,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         when (item.itemId) {
-            R.id.optionsProfileScreen -> navController.navigate(R.id.profileScreen)
+            R.id.optionsProfileScreen -> findNavController(R.id.nav_host_fragment).navigate(R.id.profileScreen)
+            R.id.home -> backToPreviousScreen()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun backToPreviousScreen() = supportFragmentManager.popBackStack()
+
+    private fun showAndHideBackArrowOnDestinationChanged() {
+        NavController.OnDestinationChangedListener {_, destination, _ ->
+            when (destination.id) {
+                R.id.profileScreen -> supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                else -> supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+        }
     }
 
     override fun onPause() {

@@ -2,7 +2,7 @@
 
     <!--    STRINGS-->
     <string name="app_name">HotOrNot</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="first_person_name">Ivan</string>
     <string name="first_person_last_name">Ivanov</string>
     <string name="first_person_email">ivan_ivanov@gmail.com</string>
@@ -34,24 +34,21 @@
     <string name="man">Man</string>
     <string name="interests">Interests</string>
     <string name="profile_screen_title">Profile</string>
-    <string name="navigation">navigation</string>
+    <string name="navigation" translatable="false">navigation</string>
     <string name="field_required">Field is required</string>
-    <string name="email_say_hello">zdr bepce ko pr</string>
-    <string name="email_subject">Android dev</string>
+    <string name="email_say_hello" translatable="false">zdr bepce ko pr</string>
+    <string name="email_subject" translatable="false">Android dev</string>
     <string name="email_chooser_text">Send with</string>
-    <string name="email_type">text/plain</string>
+    <string name="email_type" translatable="false">text/plain</string>
     <string name="enter_valid_email">Please enter a valid email!</string>
     <string name="gallery_select_image_text">Select Picture</string>
     <string name="select_option">Please select option!</string>
-    <string name="gallery_type">image/*</string>
+    <string name="gallery_type" translatable="false">image/*</string>
     <string name="who_is_hot">Who Is \n HOT ?</string>
     <string name="i_am_button">I AM</string>
     <string name="cant_run">Can\'t run from yourself!!</string>
-    <string name="languages">Languages</string>
-    <string name="choose_language">Choose language</string>
-    <string name="bulgarian">български</string>
-    <string name="english">English</string>
-    <string name="white_space"> </string>
+    <string name="white_space" translatable="false">\u0020</string>
+
     <!--    STRINGS-->
 
     <!--    INTEGERS-->

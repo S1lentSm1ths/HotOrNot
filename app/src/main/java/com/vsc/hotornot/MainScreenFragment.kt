@@ -35,7 +35,7 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         getRepositoriesInstance()
         user = userRepository.getUser()!!
-        listOfSavedFriends = friendRepository.listOfSavedFriends
+        listOfSavedFriends = friendRepository.getFriends()
         setRandomPerson()
         setEmail()
         return binding.root
@@ -48,7 +48,7 @@ class MainScreenFragment : Fragment() {
 
     private fun getRepositoriesInstance() {
         userRepository = UserRepository.getInstance(this.context)
-        friendRepository = FriendRepository.getInstance(this.context, resources)
+        friendRepository = FriendRepository.getInstance(requireContext())
     }
 
     private fun setRandomPerson() {

@@ -8,10 +8,14 @@ import com.vsc.hotornot.model.Friend
 import com.vsc.hotornot.model.Gender
 import java.util.Collections.shuffle
 
-class FriendRepository(context: Context?, val resources: Resources) {
+class FriendRepository(context: Context, val resources: Resources) {
 
     private val userSharedPreferences = UserSharedPreferences.getInstance(context)
     var listOfSavedFriends = userSharedPreferences.getFriends()
+
+    fun getFriends(): List<Friend>? {
+        return userSharedPreferences.getFriends()
+    }
 
     private fun createdFriends(): List<Friend> {
         return listOf(
@@ -70,9 +74,9 @@ class FriendRepository(context: Context?, val resources: Resources) {
 
         private var instance: FriendRepository? = null
 
-        fun getInstance(context: Context?, resources: Resources): FriendRepository {
+        fun getInstance(context: Context): FriendRepository {
             if (instance == null) {
-                instance = FriendRepository(context, resources)
+                instance = FriendRepository(context, context.resources)
             }
             return instance as FriendRepository
         }

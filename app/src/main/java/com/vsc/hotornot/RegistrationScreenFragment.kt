@@ -27,9 +27,7 @@ class RegistrationScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationScreenBinding
     private lateinit var userRepository: UserRepository
-    private lateinit var buttonRegister: Button
     private lateinit var progressBar: ProgressBar
-    private var gender = Gender.OTHER
     private var selectedInterest: String = resources.getString(R.string.white_space)
 
     override fun onCreateView(
@@ -54,7 +52,6 @@ class RegistrationScreenFragment : Fragment() {
     }
 
     private fun initViews() {
-        buttonRegister = binding.buttonRegister
         progressBar = binding.createAccountProgressBar
     }
 
@@ -63,7 +60,7 @@ class RegistrationScreenFragment : Fragment() {
     }
 
     private fun onButtonRegisterClicked() {
-        buttonRegister.setOnClickListener {
+        binding.buttonRegister.setOnClickListener {
             binding.createAccountProgressBar.isIndeterminate = true
             when (nameValidation(binding.firstNameEditText, binding.lastNameEditText)) {
                 true -> {
@@ -71,7 +68,7 @@ class RegistrationScreenFragment : Fragment() {
                         binding.firstNameEditText.text.toString(),
                         binding.lastNameEditText.text.toString(),
                         binding.emailEditText.text.toString(),
-                        gender,
+                        onGenderButtonSelect(),
                         selectedInterest
                     )
                     userRepository.saveUserData(user)
@@ -127,13 +124,13 @@ class RegistrationScreenFragment : Fragment() {
     }
 
     private fun disableRegisterButton() {
-        buttonRegister.setHintTextColor(resources.getColor(R.color.disabled_color))
-        buttonRegister.isEnabled = false
+        binding.buttonRegister.setHintTextColor(resources.getColor(R.color.disabled_color))
+        binding.buttonRegister.isEnabled = false
     }
 
     private fun activateRegisterButton() {
-        buttonRegister.setHintTextColor(resources.getColor(R.color.black))
-        buttonRegister.isEnabled = true
+        binding.buttonRegister.setHintTextColor(resources.getColor(R.color.black))
+        binding.buttonRegister.isEnabled = true
     }
 
     private fun createSpinner() {
@@ -167,15 +164,17 @@ class RegistrationScreenFragment : Fragment() {
             }
     }
 
-    private fun onGenderButtonSelect() {
-        binding.genderManButton.setOnClickListener {
-            gender = Gender.MAN
-        }
-        binding.genderWomanButton.setOnClickListener {
-            gender = Gender.WOMAN
-        }
-        binding.genderOtherButton.setOnClickListener {
-            gender = Gender.OTHER
+    private fun onGenderButtonSelect(): Gender {
+        return when {
+            binding.genderManButton.isChecked -> {
+                Gender.MAN
+            }
+            binding.genderWomanButton.isChecked -> {
+                Gender.WOMAN
+            }
+            else -> {
+                Gender.OTHER
+            }
         }
     }
 

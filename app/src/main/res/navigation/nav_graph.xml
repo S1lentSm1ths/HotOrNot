@@ -16,6 +16,9 @@
         <action
             android:id="@+id/actionSplashScreenToRegistrationScreenFragment"
             app:destination="@id/registrationScreenFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_profileScreen"
+            app:destination="@id/profileScreen" />
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
