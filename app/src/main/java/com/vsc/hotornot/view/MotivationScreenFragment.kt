@@ -1,4 +1,4 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.view
 
 import android.os.Bundle
 import android.text.Spannable
@@ -6,23 +6,20 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
-import androidx.core.text.toSpannable
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.vsc.hotornot.R
 import com.vsc.hotornot.databinding.FragmentMotivationScreenBinding
-import kotlin.math.max
 
-private const val START_OF_TEXT_COLORING = 7
+private const val START_OF_TEXT_COLORING = 6
 private const val END_OF_TEXT_COLORING = 12
-private const val END_OF_TEXT_SIZE = 14
+private const val END_OF_TEXT_SIZE = 13
 private const val HOT_TEXT_SIZE = 1.2f
 
 class MotivationScreenFragment : Fragment() {
@@ -64,7 +61,7 @@ class MotivationScreenFragment : Fragment() {
         }
     }
 
-    private fun backToPreviousScreen() = activity?.supportFragmentManager?.popBackStack()
+    private fun backToPreviousScreen() = activity?.findNavController(R.id.navHostFragment)?.popBackStack()
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(this) {

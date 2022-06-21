@@ -1,4 +1,4 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.view
 
 import android.content.Intent
 import android.net.Uri
@@ -8,17 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.vsc.hotornot.R
+import com.vsc.hotornot.UserSharedPreferences
 import com.vsc.hotornot.databinding.FragmentProfileScreenBinding
 import com.vsc.hotornot.model.Gender
 import com.vsc.hotornot.model.User
+import com.vsc.hotornot.repository.UserRepository
 
 private const val ICON_POSITION = 0
 
 class ProfileScreen : Fragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
-    private lateinit var userSharedPreferences: UserSharedPreferences
+    private lateinit var userRepository: UserRepository
     private lateinit var user: User
 
     override fun onCreateView(
@@ -28,24 +30,14 @@ class ProfileScreen : Fragment() {
         binding = FragmentProfileScreenBinding.inflate(layoutInflater, container, false)
         getUserSharedPreferencesInstance()
         setUserInfo()
-        onArrowBackClicked()
         onPersonImageClicked()
         return binding.root
     }
 
     private fun getUserSharedPreferencesInstance() {
-        userSharedPreferences = UserSharedPreferences.getInstance(this.context)
-        user = userSharedPreferences.getUserData()!!
+        userRepository = UserRepository.getInstance(this.context)
+        user = userRepository.getUser()!!
     }
-
-    private fun onArrowBackClicked() {
-        binding.toolbarMenu.setNavigationOnClickListener {
-            goBackToMainScreen()
-        }
-    }
-
-    private fun goBackToMainScreen() =
-        findNavController().navigate(R.id.actionProfileScreenToMainScreen)
 
     private fun onPersonImageClicked() {
         binding.selectImageButton.setOnClickListener {

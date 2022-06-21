@@ -1,20 +1,20 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.view
 
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import com.vsc.hotornot.R
 import com.vsc.hotornot.databinding.ActivityMainBinding
 
-private const val MAX_INACTIVE_SECONDS = 600000L
+private const val MAX_INACTIVE_SECONDS = 60L
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,34 +25,41 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
         setActionBarColor()
-        setContentView(binding.root)
+        removeActionBarTitle()
         showAndHideBackArrowOnDestinationChanged()
+        setContentView(binding.root)
     }
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-
-        return super.onCreateView(name, context, attrs)
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_screen_options_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun hideOptionsMenu() {
+        when (navController.currentDestination?.id) {
+            R.id.motivationScreenFragment -> R.menu.main_screen_options_menu
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.optionsProfileScreen -> findNavController(R.id.nav_host_fragment).navigate(R.id.profileScreen)
-            R.id.home -> backToPreviousScreen()
+            R.id.optionsProfileScreen -> findNavController(R.id.navHostFragment).navigate(R.id.profileScreen)
+            android.R.id.home -> backToPreviousScreen()
+        }
+        when(navController.currentDestination?.id) {
+            R.id.motivationScreenFragment -> item.isVisible = false
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun backToPreviousScreen() = supportFragmentManager.popBackStack()
+    private fun backToPreviousScreen() = navController.popBackStack()
 
     private fun showAndHideBackArrowOnDestinationChanged() {
-        NavController.OnDestinationChangedListener {_, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.profileScreen -> supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 else -> supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -67,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        showAndHideBackArrowOnDestinationChanged()
         checkInactiveTime()
     }
 
@@ -81,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun removeActionBarTitle() = supportActionBar?.setDisplayShowTitleEnabled(false)
+
     private fun checkInactiveTime() {
         val currentTime = System.currentTimeMillis()
         if ((currentTime - onPauseTime) > MAX_INACTIVE_SECONDS) {
@@ -89,7 +99,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToMotivationScreen() {
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.navHostFragment)
         val currentScreen = navController.currentDestination?.id
         if (currentScreen != R.id.registrationScreenFragment && currentScreen != R.id.splashScreen)
             navController.navigate(R.id.motivationScreenFragment)

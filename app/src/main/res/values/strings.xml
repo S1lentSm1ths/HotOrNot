@@ -19,8 +19,8 @@
     <string name="third_person_interests">Apache helicopters</string>
     <string name="third_person_rating">Not</string>
     <string name="main_screen_buttons_text">Not</string>
-    <string name="hot">Hot</string>
-    <string name="not">Not</string>
+    <string name="hot" translatable="false">Hot</string>
+    <string name="not" translatable="false">Not</string>
     <string name="app_text">ヾ(´∀｀○)ﾉ</string>
     <string name="register">REGISTER</string>
     <string name="create_account">Create account</string>
@@ -44,10 +44,11 @@
     <string name="gallery_select_image_text">Select Picture</string>
     <string name="select_option">Please select option!</string>
     <string name="gallery_type" translatable="false">image/*</string>
-    <string name="who_is_hot">Who Is \n HOT ?</string>
+    <string name="who_is_hot">Who Is\nHOT ?</string>
     <string name="i_am_button">I AM</string>
     <string name="cant_run">Can\'t run from yourself!!</string>
     <string name="white_space" translatable="false">\u0020</string>
+    <string name="no_more_suggestions">Nobody here but us chickens!</string>
 
     <!--    STRINGS-->
 

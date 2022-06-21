@@ -1,18 +1,19 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
-import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
+import com.vsc.hotornot.R
 import com.vsc.hotornot.R.id.actionRegistrationScreenFragmentToMainScreen
 import com.vsc.hotornot.databinding.FragmentRegistrationScreenBinding
 import com.vsc.hotornot.model.Gender
@@ -36,6 +37,7 @@ class RegistrationScreenFragment : Fragment() {
     ): View {
         binding = FragmentRegistrationScreenBinding.inflate(inflater, container, false)
         initViews()
+        changeAppLogo()
         createSpinner()
         fillProgressOnFirstNameChanged()
         fillProgressOnLastNameChanged()
@@ -238,5 +240,19 @@ class RegistrationScreenFragment : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         })
+    }
+
+    private fun changeAppLogo() {
+        when (isLanguageEnglish()) {
+            true -> binding.appLogo.setImageResource(R.drawable.app_logo)
+            else -> binding.appLogo.setImageResource(R.drawable.bulgarian_app_logo)
+        }
+    }
+
+    private fun isLanguageEnglish(): Boolean {
+        return when (Locale.getDefault().language.lowercase()) {
+            "english" -> true
+            else -> false
+        }
     }
 }

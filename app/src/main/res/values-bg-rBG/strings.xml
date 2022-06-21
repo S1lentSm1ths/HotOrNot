@@ -15,8 +15,6 @@
     <string name="third_person_email">stan4o10@gmail.com</string>
     <string name="third_person_rating">Не</string>
     <string name="main_screen_buttons_text">Не</string>
-    <string name="hot">Горещ</string>
-    <string name="not">Горещ</string>
     <string name="third_person_interests">Хеликоптери</string>
     <string name="first_person_interests">Принцеси</string>
     <string name="app_text">ヾ(´∀｀○)ﾉ</string>
@@ -37,7 +35,8 @@
     <string name="enter_valid_email">Моля, въведете валиден имейл</string>
     <string name="gallery_select_image_text">Изберете снимка</string>
     <string name="select_option">Моля, изберете опция</string>
-    <string name="who_is_hot">Кой е \n ГОРЕЩ ?</string>
+    <string name="who_is_hot">Кой е\nГОРЕЩ ?</string>
     <string name="i_am_button">АЗ СЪМ</string>
     <string name="cant_run">Не може да го пуснете от себе си</string>
+    <string name="no_more_suggestions">Няма повече предложения!</string>
 </resources>

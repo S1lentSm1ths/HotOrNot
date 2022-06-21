@@ -7,17 +7,6 @@
     android:background="@drawable/background_image4"
     tools:context=".ProfileScreen">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_menu"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/main_screen_button_not_background"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/profile_screen_title" />
-
     <ImageButton
         android:id="@+id/selectImageButton"
         android:layout_width="@dimen/xlarge_margin"
@@ -26,7 +15,7 @@
         android:background="@drawable/person_image_ring"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/personImage"
@@ -37,7 +26,7 @@
         android:src="@drawable/ic_select_person_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_menu" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.cardview.widget.CardView
