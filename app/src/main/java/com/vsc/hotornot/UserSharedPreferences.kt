@@ -35,11 +35,13 @@ class UserSharedPreferences(context: Context?) {
 
     fun setListOfFriends(friends: List<Friend>) {
         val friendsData = Json.encodeToString(friends)
-        userSharedPreferences?.edit()?.putString(FRIENDS_SHARED_PREFERENCES_KEY, friendsData)?.apply()
+        userSharedPreferences?.edit()?.putString(FRIENDS_SHARED_PREFERENCES_KEY, friendsData)
+            ?.apply()
     }
 
     fun getFriends(): List<Friend>? {
-        val friendsData = userSharedPreferences?.getString(FRIENDS_SHARED_PREFERENCES_KEY, null) ?: return null
+        val friendsData =
+            userSharedPreferences?.getString(FRIENDS_SHARED_PREFERENCES_KEY, null) ?: return null
         return Json.decodeFromString(friendsData)
     }
 

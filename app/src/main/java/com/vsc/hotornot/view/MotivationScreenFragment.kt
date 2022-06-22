@@ -61,11 +61,13 @@ class MotivationScreenFragment : Fragment() {
         }
     }
 
-    private fun backToPreviousScreen() = activity?.findNavController(R.id.navHostFragment)?.popBackStack()
+    private fun backToPreviousScreen() =
+        activity?.findNavController(R.id.navHostFragment)?.popBackStack()
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(this) {
-            Toast.makeText(context, resources.getString(R.string.cant_run), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, resources.getString(R.string.cant_run), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

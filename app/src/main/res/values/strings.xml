@@ -49,6 +49,7 @@
     <string name="cant_run">Can\'t run from yourself!!</string>
     <string name="white_space" translatable="false">\u0020</string>
     <string name="no_more_suggestions">Nobody here but us chickens!</string>
+    <string name="language_english" translatable="false">english</string>
 
     <!--    STRINGS-->
 

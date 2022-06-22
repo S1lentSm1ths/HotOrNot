@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_image4"
-    tools:context=".ProfileScreen">
+    tools:context=".view.ProfileScreenFragment">
 
     <ImageButton
         android:id="@+id/selectImageButton"
@@ -32,18 +32,18 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero_margin"
-        android:layout_marginTop="@dimen/xxxmedium_margin"
         android:layout_marginStart="@dimen/xxxsmall_margin"
+        android:layout_marginTop="@dimen/xxxmedium_margin"
         android:layout_marginEnd="@dimen/xxxsmall_margin"
-        app:cardCornerRadius="@dimen/xxbig_margin"
         android:background="@drawable/card_view_background"
+        app:cardCornerRadius="@dimen/xxbig_margin"
         app:layout_constraintTop_toBottomOf="@id/selectImageButton">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/xxmedium_margin"
-            android:background="@drawable/card_view_background">
+            android:background="@drawable/card_view_background"
+            android:padding="@dimen/xxmedium_margin">
 
             <TextView
                 android:id="@+id/firstAndLastName"
@@ -57,8 +57,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/medium_text"
                 app:drawableStartCompat="@drawable/ic_login_person"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/userEmail"
@@ -71,8 +71,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/medium_text"
                 app:drawableStartCompat="@drawable/ic_email"
-                app:layout_constraintTop_toBottomOf="@id/firstAndLastName"
-                app:layout_constraintStart_toStartOf="@id/firstAndLastName"/>
+                app:layout_constraintStart_toStartOf="@id/firstAndLastName"
+                app:layout_constraintTop_toBottomOf="@id/firstAndLastName" />
 
             <TextView
                 android:id="@+id/userSex"
@@ -85,8 +85,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/medium_text"
                 app:drawableStartCompat="@drawable/ic_man"
-                app:layout_constraintTop_toBottomOf="@id/userEmail"
-                app:layout_constraintStart_toStartOf="@id/userEmail"/>
+                app:layout_constraintStart_toStartOf="@id/userEmail"
+                app:layout_constraintTop_toBottomOf="@id/userEmail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.vsc.hotornot.R
 import com.vsc.hotornot.databinding.ActivityMainBinding
 
-private const val MAX_INACTIVE_SECONDS = 60L
+private const val MAX_INACTIVE_SECONDS = 600000L
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             R.id.optionsProfileScreen -> findNavController(R.id.navHostFragment).navigate(R.id.profileScreen)
             android.R.id.home -> backToPreviousScreen()
         }
-        when(navController.currentDestination?.id) {
+        when (navController.currentDestination?.id) {
             R.id.motivationScreenFragment -> item.isVisible = false
         }
         return super.onOptionsItemSelected(item)

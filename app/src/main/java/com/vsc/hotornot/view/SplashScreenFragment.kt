@@ -56,15 +56,15 @@ class SplashScreenFragment : Fragment() {
         findNavController().navigate(R.id.actionSplashScreenToRegistrationScreenFragment)
 
     private fun changeAppLogo() {
-        when (isLanguageEnglish()) {
+        when (isEnglishLanguage()) {
             true -> binding.appLogo.setImageResource(R.drawable.app_logo)
             else -> binding.appLogo.setImageResource(R.drawable.bulgarian_app_logo)
         }
     }
 
-    private fun isLanguageEnglish(): Boolean {
+    private fun isEnglishLanguage(): Boolean {
         return when (Locale.getDefault().language.lowercase()) {
-            "english" -> true
+            resources.getString(R.string.language_english) -> true
             else -> false
         }
     }

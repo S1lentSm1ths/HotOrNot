@@ -182,15 +182,15 @@ class RegistrationScreenFragment : Fragment() {
 
     private fun fillProgressOnFirstNameChanged() {
         binding.firstNameEditText.addTextChangedListener(object : TextWatcher {
-            var progressChanged = false
+            var isProgressChanged = false
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.firstNameEditText.text.toString().isEmpty()) {
                     progressBar.progress -= THIRD_PROGRESS
-                    progressChanged = false
+                    isProgressChanged = false
                 } else if (binding.firstNameEditText.text.toString().isNotEmpty()) {
-                    if (!progressChanged) {
+                    if (!isProgressChanged) {
                         progressBar.progress += THIRD_PROGRESS
-                        progressChanged = true
+                        isProgressChanged = true
                     }
                 }
             }
@@ -203,15 +203,15 @@ class RegistrationScreenFragment : Fragment() {
 
     private fun fillProgressOnLastNameChanged() {
         binding.lastNameEditText.addTextChangedListener(object : TextWatcher {
-            var progressChanged = false
+            var isProgressChanged = false
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.lastNameEditText.text.toString().isEmpty()) {
                     progressBar.progress -= THIRD_PROGRESS
-                    progressChanged = false
+                    isProgressChanged = false
                 } else if (binding.lastNameEditText.text.toString().isNotEmpty()) {
-                    if (!progressChanged) {
+                    if (!isProgressChanged) {
                         progressBar.progress += THIRD_PROGRESS
-                        progressChanged = true
+                        isProgressChanged = true
                     }
                 }
             }
@@ -223,15 +223,15 @@ class RegistrationScreenFragment : Fragment() {
 
     private fun fillProgressOnEmailChanged() {
         binding.emailEditText.addTextChangedListener(object : TextWatcher {
-            var progressChanged = false
+            var isProgressChanged = false
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.emailEditText.text.toString().isEmpty()) {
                     progressBar.progress -= THIRD_PROGRESS
-                    progressChanged = false
+                    isProgressChanged = false
                 } else if (binding.emailEditText.text.toString().isNotEmpty()) {
-                    if (!progressChanged) {
+                    if (!isProgressChanged) {
                         progressBar.progress += THIRD_PROGRESS
-                        progressChanged = true
+                        isProgressChanged = true
                     }
                 }
             }
@@ -243,15 +243,15 @@ class RegistrationScreenFragment : Fragment() {
     }
 
     private fun changeAppLogo() {
-        when (isLanguageEnglish()) {
+        when (isEnglishLanguage()) {
             true -> binding.appLogo.setImageResource(R.drawable.app_logo)
             else -> binding.appLogo.setImageResource(R.drawable.bulgarian_app_logo)
         }
     }
 
-    private fun isLanguageEnglish(): Boolean {
+    private fun isEnglishLanguage(): Boolean {
         return when (Locale.getDefault().language.lowercase()) {
-            "english" -> true
+            resources.getString(R.string.language_english) -> true
             else -> false
         }
     }

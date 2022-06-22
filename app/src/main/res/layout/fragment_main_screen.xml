@@ -15,28 +15,26 @@
             android:id="@+id/chickenImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxmedium_margin"
             android:src="@drawable/img_chicken"
             android:visibility="visible"
-            android:layout_marginTop="@dimen/xxmedium_margin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/chickenText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:layout_marginTop="@dimen/xxmedium_margin"
             android:text="@string/no_more_suggestions"
-            android:textSize="@dimen/xmedium_text"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textColor="@color/white"
+            android:textSize="@dimen/xmedium_text"
             android:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@+id/chickenImage"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chickenImage" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/personCardView"

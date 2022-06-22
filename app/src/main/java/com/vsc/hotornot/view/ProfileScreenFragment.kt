@@ -17,7 +17,7 @@ import com.vsc.hotornot.repository.UserRepository
 
 private const val ICON_POSITION = 0
 
-class ProfileScreen : Fragment() {
+class ProfileScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileScreenBinding
     private lateinit var userRepository: UserRepository

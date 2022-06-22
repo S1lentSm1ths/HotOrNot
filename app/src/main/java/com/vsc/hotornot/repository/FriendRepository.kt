@@ -55,10 +55,10 @@ class FriendRepository(context: Context, val resources: Resources) {
         )
     }
 
-    fun changeFriendRating(rating: String?, friendPosition: Int) {
+    fun changeFriendRating(rateFriend: String?, friendPosition: Int) {
         val listOfSavedFriends = getFriends()
-        listOfSavedFriends?.get(friendPosition)?.rating = rating
-        saveChangedFriends(listOfSavedFriends!!)
+        listOfSavedFriends?.get(friendPosition)?.rating = rateFriend
+        updateFriends(listOfSavedFriends!!)
     }
 
 
@@ -74,8 +74,8 @@ class FriendRepository(context: Context, val resources: Resources) {
         return listOfCharacteristics
     }
 
-    private fun saveChangedFriends(changedFriends: List<Friend>) =
-        userSharedPreferences.setListOfFriends(changedFriends)
+    private fun updateFriends(updatedFriends: List<Friend>) =
+        userSharedPreferences.setListOfFriends(updatedFriends)
 
     private fun saveCreatedFriends() = userSharedPreferences.setListOfFriends(createdFriends())
 
