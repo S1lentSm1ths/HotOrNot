@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_image4"
-    tools:context=".MotivationScreenFragment">
+    tools:context=".view.MotivationScreenFragment">
 
     <TextView
         android:id="@+id/whoIsHotTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/xxmedium_text"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/xxmedium_text"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/whoIsHotButton"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/medium_margin"
         android:paddingHorizontal="@dimen/xxxmedium_margin"
         android:text="@string/i_am_button"
-        android:textSize="@dimen/xmedium_text"
         android:textColor="@color/cardview_dark_background"
-        style="?attr/materialButtonOutlinedStyle"
-        app:layout_constraintTop_toBottomOf="@id/whoIsHotTextView"
+        android:textSize="@dimen/xmedium_text"
+        app:layout_constraintEnd_toEndOf="@id/whoIsHotTextView"
         app:layout_constraintStart_toStartOf="@id/whoIsHotTextView"
-        app:layout_constraintEnd_toEndOf="@id/whoIsHotTextView"/>
+        app:layout_constraintTop_toBottomOf="@id/whoIsHotTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

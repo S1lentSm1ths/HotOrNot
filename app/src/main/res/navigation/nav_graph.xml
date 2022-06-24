@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.vsc.hotornot.SplashScreenFragment"
+        android:name="com.vsc.hotornot.view.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainScreen"
-        android:name="com.vsc.hotornot.MainScreenFragment"
+        android:name="com.vsc.hotornot.view.MainScreenFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationScreenFragment"
-        android:name="com.vsc.hotornot.RegistrationScreenFragment"
+        android:name="com.vsc.hotornot.view.RegistrationScreenFragment"
         android:label="fragment_registration_screen"
         tools:layout="@layout/fragment_registration_screen" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileScreen"
-        android:name="com.vsc.hotornot.ProfileScreen"
+        android:name="com.vsc.hotornot.view.ProfileScreen"
         android:label="fragment_profile_screen"
         tools:layout="@layout/fragment_profile_screen" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/motivationScreenFragment"
-        android:name="com.vsc.hotornot.MotivationScreenFragment"
+        android:name="com.vsc.hotornot.view.MotivationScreenFragment"
         android:label="fragment_motivation_screen"
         tools:layout="@layout/fragment_motivation_screen" />
 </navigation>

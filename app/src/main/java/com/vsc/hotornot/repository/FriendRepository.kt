@@ -6,7 +6,9 @@ import com.vsc.hotornot.R
 import com.vsc.hotornot.UserSharedPreferences
 import com.vsc.hotornot.model.Friend
 import com.vsc.hotornot.model.Gender
+import java.util.*
 import java.util.Collections.shuffle
+import kotlin.jvm.internal.FunctionReferenceImpl
 
 class FriendRepository(context: Context, val resources: Resources) {
 
@@ -25,30 +27,40 @@ class FriendRepository(context: Context, val resources: Resources) {
                 resources.getString(R.string.third_person_email),
                 Gender.MAN,
                 resources.getString(R.string.third_person_interests),
-                resources.getString(R.string.third_person_rating),
+                null,
                 createRandomFriendCharacteristics(),
-                R.drawable.third_person_img
+                R.drawable.third_person_img,
+                UUID.randomUUID().toString()
             ), Friend(
                 resources.getString(R.string.second_person_name),
                 resources.getString(R.string.second_person_last_name),
                 resources.getString(R.string.second_person_email),
                 Gender.MAN,
                 resources.getString(R.string.second_person_interests),
-                resources.getString(R.string.second_person_rating),
+                null,
                 createRandomFriendCharacteristics(),
-                R.drawable.second_person_img
+                R.drawable.second_person_img,
+                UUID.randomUUID().toString()
             ), Friend(
                 resources.getString(R.string.first_person_name),
                 resources.getString(R.string.first_person_last_name),
                 resources.getString(R.string.first_person_email),
                 Gender.MAN,
                 resources.getString(R.string.first_person_interests),
-                resources.getString(R.string.first_person_rating),
+                null,
                 createRandomFriendCharacteristics(),
-                R.drawable.first_person_img
+                R.drawable.first_person_img,
+                UUID.randomUUID().toString()
             )
         )
     }
+
+    fun changeFriendRating(rateFriend: String?, friendPosition: Int) {
+        val listOfSavedFriends = getFriends()
+        listOfSavedFriends?.get(friendPosition)?.rating = rateFriend
+        updateFriends(listOfSavedFriends!!)
+    }
+
 
     private fun createRandomFriendCharacteristics(): List<String> {
         val friendCharacteristics = resources.getStringArray(R.array.characteristics).toList()
@@ -62,11 +74,14 @@ class FriendRepository(context: Context, val resources: Resources) {
         return listOfCharacteristics
     }
 
-    private fun saveFriends() = userSharedPreferences.setListOfFriends(createdFriends())
+    private fun updateFriends(updatedFriends: List<Friend>) =
+        userSharedPreferences.setListOfFriends(updatedFriends)
+
+    private fun saveCreatedFriends() = userSharedPreferences.setListOfFriends(createdFriends())
 
     fun checkIfFriendsSaved() {
         when (listOfSavedFriends) {
-            null -> saveFriends()
+            null -> saveCreatedFriends()
         }
     }
 

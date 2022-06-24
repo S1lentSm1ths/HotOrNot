@@ -1,21 +1,19 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.view
 
 import android.content.Intent
 import android.graphics.Paint
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
+import com.vsc.hotornot.R
 import com.vsc.hotornot.databinding.FragmentMainScreenBinding
 import com.vsc.hotornot.model.Friend
 import com.vsc.hotornot.model.User
 import com.vsc.hotornot.repository.FriendRepository
 import com.vsc.hotornot.repository.UserRepository
-import kotlin.math.min
 
 private const val START_OF_FOR_LOOP = 0
 private const val MIN_CHIPS_COUNT = 1
@@ -27,6 +25,7 @@ class MainScreenFragment : Fragment() {
     private lateinit var friendRepository: FriendRepository
     private lateinit var user: User
     private var listOfSavedFriends: List<Friend>? = null
+    private var randomFriendNumber = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,10 +51,37 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun setRandomPerson() {
-        val randomFriendNumber = (START_OF_FOR_LOOP until listOfSavedFriends!!.size).random()
-        if (listOfSavedFriends != null) {
-            displayFriend(randomFriendNumber)
+        for (i in START_OF_FOR_LOOP..listOfSavedFriends!!.size) {
+            showCardViewAndButtons()
+            randomFriendNumber = (START_OF_FOR_LOOP until listOfSavedFriends!!.size).random()
+            if (listOfSavedFriends != null && listOfSavedFriends?.get(randomFriendNumber)?.rating == null) {
+                displayFriend(randomFriendNumber)
+            } else {
+                hideFriendCardView()
+                hideButtons()
+                setChickensImageAndTextView()
+            }
         }
+    }
+
+    private fun hideFriendCardView() {
+        binding.personCardView.visibility = View.GONE
+    }
+
+    private fun hideButtons() {
+        binding.personNotButton.visibility = View.GONE
+        binding.personHotButton.visibility = View.GONE
+    }
+
+    private fun setChickensImageAndTextView() {
+        binding.chickenImage.visibility = View.VISIBLE
+        binding.chickenText.visibility = View.VISIBLE
+    }
+
+    private fun showCardViewAndButtons() {
+        binding.personCardView.visibility = View.VISIBLE
+        binding.personHotButton.visibility = View.VISIBLE
+        binding.personNotButton.visibility = View.VISIBLE
     }
 
     private fun displayFriend(friendPosition: Int) {
@@ -69,9 +95,17 @@ class MainScreenFragment : Fragment() {
 
     private fun changePersonOnClick() {
         binding.personHotButton.setOnClickListener {
+            friendRepository.changeFriendRating(
+                resources.getString(R.string.hot),
+                randomFriendNumber
+            )
             setRandomPerson()
         }
         binding.personNotButton.setOnClickListener {
+            friendRepository.changeFriendRating(
+                resources.getString(R.string.not),
+                randomFriendNumber
+            )
             setRandomPerson()
         }
     }

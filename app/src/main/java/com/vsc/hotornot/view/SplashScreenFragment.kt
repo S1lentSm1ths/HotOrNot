@@ -1,4 +1,4 @@
-package com.vsc.hotornot
+package com.vsc.hotornot.view
 
 import android.os.Bundle
 import android.os.Handler
@@ -6,12 +6,15 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.text.toLowerCase
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.vsc.hotornot.Constants.TRANSACTION_DURATION_TIME
+import com.vsc.hotornot.R
 import com.vsc.hotornot.databinding.FragmentSplashScreenBinding
 import com.vsc.hotornot.repository.FriendRepository
 import com.vsc.hotornot.repository.UserRepository
+import java.util.*
 
 class SplashScreenFragment : Fragment() {
 
@@ -25,6 +28,7 @@ class SplashScreenFragment : Fragment() {
     ): View {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         getRepositoriesInstance()
+        changeAppLogo()
         friendRepository.checkIfFriendsSaved()
         postTransactionDelayToNextScreen()
         return binding.root
@@ -50,4 +54,18 @@ class SplashScreenFragment : Fragment() {
 
     private fun navigateToRegistrationScreen() =
         findNavController().navigate(R.id.actionSplashScreenToRegistrationScreenFragment)
+
+    private fun changeAppLogo() {
+        when (isEnglishLanguage()) {
+            true -> binding.appLogo.setImageResource(R.drawable.app_logo)
+            else -> binding.appLogo.setImageResource(R.drawable.bulgarian_app_logo)
+        }
+    }
+
+    private fun isEnglishLanguage(): Boolean {
+        return when (Locale.getDefault().language.lowercase()) {
+            resources.getString(R.string.language_english) -> true
+            else -> false
+        }
+    }
 }
